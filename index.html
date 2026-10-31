@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-10-31T17:47"><meta name="theme-color" content="#1f2a33"><style>
+<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-10-31T18:19"><meta name="theme-color" content="#1f2a33"><style>
 /* Village Gate v2. Base styles from the prototype, v2 additions at the end. */
 :root{
   --bg:#ECEFF2; --surface:#FFFFFF; --surface2:#F4F6F8; --line:#D4DBE2; --ink:#17212B; --muted:#5A6676;
@@ -172,10 +172,12 @@ table.fmt td,table.fmt th{font-size:13px;padding:6px 10px}
 @media (max-width:1150px){.ov-grid{grid-template-columns:1fr;gap:0}}
 
 /* village map */
-.vmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 20px}
+/* village map: fixed 28 px cells, 10 per row per soi, soi blocks side by side and wrapping (300 houses fit one screen at 1366 px) */
+.vmap{display:flex;flex-wrap:wrap;gap:16px 20px;align-items:flex-start}
+.zone{flex:none}
 .zone h3{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
-.tiles{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
-.tile{appearance:none;border:0;padding:0;aspect-ratio:1;border-radius:3px;font-size:10px;font-weight:600;line-height:1;cursor:pointer;display:grid;place-items:center;min-width:0}
+.tiles{display:grid;grid-template-columns:repeat(10,28px);gap:3px}
+.tile{appearance:none;border:0;padding:0;width:28px;height:28px;border-radius:3px;font-size:10px;font-weight:600;line-height:1;cursor:pointer;display:grid;place-items:center}
 .tile.s-available{background:var(--ok-bg);color:var(--ok)}
 .tile.s-full{background:var(--busy);color:var(--on-busy)}
 .tile.s-overflow{background:repeating-linear-gradient(135deg,var(--over) 0 2.5px,var(--over-bg) 2.5px 5.5px);color:var(--ink)}
@@ -186,8 +188,6 @@ table.fmt td,table.fmt th{font-size:13px;padding:6px 10px}
 .sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:-8px}
 .t-available{background:var(--ok-bg);box-shadow:inset 0 0 0 1px var(--ok)} .t-full{background:var(--busy)} .t-overflow{background:repeating-linear-gradient(135deg,var(--over) 0 2px,var(--over-bg) 2px 4px)}
 .sw-in{background:var(--busy)} .sw-out{background:var(--muted);opacity:.55}
-@media (max-width:760px){.vmap{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:480px){.vmap{grid-template-columns:1fr}}
 .chart{width:100%;height:auto;display:block}
 .chart .grid{stroke:var(--line);stroke-width:1}
 .chart .ax{fill:var(--muted);font-size:11px;font-family:inherit}
@@ -390,9 +390,8 @@ label.inline input{width:auto}
 .wlist li.w-issued{border-left-color:var(--ok)}.wlist li.w-declined{border-left-color:var(--bad)}
 .wlist .grow{appearance:none;border:0;background:transparent;color:var(--ink);display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-align:left;cursor:pointer;padding:4px 0;font-size:14px}
 .wlist .grow>span{flex:1;min-width:0}.wlist small{display:block;color:var(--muted);font-size:12px}
-.zone.wide{grid-column:span 2}
-@media (max-width:760px){.zone.wide{grid-column:auto}}
-.vmap{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.zone.wide .tiles{grid-template-columns:repeat(20,28px)}
+@media (max-width:760px){.zone.wide .tiles{grid-template-columns:repeat(10,28px)}}
 .tile{font-size:9.5px;letter-spacing:-.02em}
 .since{font-weight:600}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -438,7 +437,7 @@ label .dpick{justify-self:start}
 .navh{appearance:none;border:0;background:transparent;width:100%;text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;cursor:default;font-family:inherit}
 button.navh{cursor:pointer}.side button.navh:hover{color:var(--ink)}.navh .caret{font-size:11px}
 /* day review page */
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.daytiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .tile2{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:3px;color:var(--busy)}
 .tile2 .kl{font-size:13px;color:var(--muted)}.tile2 strong{font-size:28px;line-height:1.1;color:var(--ink)}
 .delta{display:inline-block;font-size:13px;font-weight:600;padding:1px 8px;border-radius:999px;width:fit-content;white-space:nowrap}
@@ -476,7 +475,7 @@ body.demo-shim .top{top:calc(env(safe-area-inset-top,0px) + 36px)}
   .side button{min-height:44px;white-space:normal;border-left:3px solid transparent;border-bottom:0;border-radius:0 8px 8px 0}
   .side button[aria-current="page"]{border-left-color:var(--paint);border-bottom-color:transparent;background:var(--surface2)}
   .side-foot{display:block}
-  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .daytiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
   .dpick{display:flex;width:100%}.dpick .dp-btn{flex:1;min-width:0}.dpcal{left:0;right:0;width:auto}
   .dropzone{padding:28px 12px}.daystatus{font-size:14px}
@@ -5875,7 +5874,7 @@ AVIEWS.day = () => {
   return `${top}
   <div class="dayhead"><div class="filters">${dayPicker('day', j.day, { max: today() })}</div>${status}</div>
   ${showImport ? importArea(b ? '' : 'dropbig') : ''}
-  <div class="tiles">${DAY_KEYS.map(([k, bad]) => `<div class="tile2"><span class="kl">${t('day.k.' + k)}</span><strong>${cur[k]}</strong>${deltaChip(cur[k] - prev[k], bad)}<span class="muted sm">${t('day.delta', { d: fmtDay(j.prev) })}</span>${sparkline(week.map(w => w.m[k] || 0))}</div>`).join('')}</div>
+  <div class="daytiles">${DAY_KEYS.map(([k, bad]) => `<div class="tile2"><span class="kl">${t('day.k.' + k)}</span><strong>${cur[k]}</strong>${deltaChip(cur[k] - prev[k], bad)}<span class="muted sm">${t('day.delta', { d: fmtDay(j.prev) })}</span>${sparkline(week.map(w => w.m[k] || 0))}</div>`).join('')}</div>
   <div class="panel"><h2>${t('day.week')}</h2><p class="muted sm">${fmtDay(week[0].day)} – ${fmtDay(j.day)}</p><div class="weekstrip">${DAY_KEYS.map(([k]) => `<div class="wk"><span class="kl">${t('day.k.' + k)}</span>${miniBars(week.map(w => w.m[k] || 0), week.map(w => fmtDay(w.day)))}</div>`).join('')}</div></div>
   <div class="grid2"><div class="panel"><h2>${t('day.notable')}</h2><p class="muted sm">${t('day.notable.p')}</p>${notableList(j)}</div>
   <div class="panel"><h2>${t('day.note.t')}</h2><p class="muted sm">${t('day.note.p')}</p><textarea id="dayNote" rows="5" maxlength="2000">${esc(j.note ? j.note.text : '')}</textarea>
