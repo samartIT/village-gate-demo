@@ -1,29 +1,32 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-11-01T01:43"><meta name="theme-color" content="#1f2a33"><style>
+<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-11-01T02:03"><meta name="theme-color" content="#2B2B2B"><style>
 /* Village Gate v2. Base styles from the prototype, v2 additions at the end. */
 :root{
-  --bg:#ECEFF2; --surface:#FFFFFF; --surface2:#F4F6F8; --line:#D4DBE2; --ink:#17212B; --muted:#5A6676;
-  --asphalt:#252A31; --asphalt-ink:#E8ECF0; --asphalt-muted:#9BA6B2;
-  --paint:#F2C318; --paint-ink:#1E1A08;
-  --ok:#1B7C45; --ok-bg:#DCF1E4; --busy:#33579C; --busy-bg:#E0E8F6; --over:#B9590C; --over-bg:#FBE8D3; --bad:#BC2D23; --bad-bg:#FBE0DC;
-  --on-tone:#FFFFFF; --on-busy:#FFFFFF; --shadow:0 18px 50px rgba(20,30,42,.16);
+  /* orange-grey village theme: accent orange on charcoal; --accent-text is the orange that passes contrast as text on white */
+  --bg:#F2F2F2; --surface:#FFFFFF; --surface2:#F7F7F7; --line:#DDDDDD; --ink:#222222; --muted:#6B6B6B;
+  --asphalt:#2B2B2B; --asphalt-ink:#F2F2F2; --asphalt-muted:#B3B3B3; --asphalt-line:rgba(255,255,255,.14); --asphalt-hl:rgba(255,255,255,.09);
+  --paint:#F7941D; --paint-ink:#1E1A08; --accent-text:#C96A00;
+  --ok:#1B7C45; --ok-bg:#DCF1E4; --busy:#33579C; --busy-bg:#E0E8F6; --over:#C8102E; --over-bg:#F9DCE1; --bad:#BC2D23; --bad-bg:#FBE0DC;
+  --on-tone:#FFFFFF; --on-busy:#FFFFFF; --shadow:0 18px 50px rgba(0,0,0,.16);
   color-scheme:light;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#11151A; --surface:#191F26; --surface2:#20272F; --line:#2D3640; --ink:#E5EAEF; --muted:#97A3B0;
-    --asphalt:#0B0E12; --asphalt-ink:#E5EAEF; --asphalt-muted:#8E99A6;
-    --ok:#4CC383; --ok-bg:#163424; --busy:#86A8EA; --busy-bg:#1B2943; --over:#F2A257; --over-bg:#3B2715; --bad:#F37A6F; --bad-bg:#3F1D1A;
+    --bg:#1A1A1A; --surface:#242424; --surface2:#2C2C2C; --line:#3A3A3A; --ink:#EDEDED; --muted:#A3A3A3;
+    --asphalt:#111111; --asphalt-ink:#F2F2F2; --asphalt-muted:#9C9C9C; --asphalt-line:rgba(255,255,255,.14); --asphalt-hl:rgba(255,255,255,.09);
+    --paint:#F7941D; --paint-ink:#1E1A08; --accent-text:#F7941D;
+    --ok:#4CC383; --ok-bg:#163424; --busy:#86A8EA; --busy-bg:#1B2943; --over:#F0556D; --over-bg:#3B1A20; --bad:#F37A6F; --bad-bg:#3F1D1A;
     --on-tone:#0E1317; --on-busy:#0E1317; --shadow:0 18px 50px rgba(0,0,0,.5);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#11151A; --surface:#191F26; --surface2:#20272F; --line:#2D3640; --ink:#E5EAEF; --muted:#97A3B0;
-  --asphalt:#0B0E12; --asphalt-ink:#E5EAEF; --asphalt-muted:#8E99A6;
-  --ok:#4CC383; --ok-bg:#163424; --busy:#86A8EA; --busy-bg:#1B2943; --over:#F2A257; --over-bg:#3B2715; --bad:#F37A6F; --bad-bg:#3F1D1A;
+  --bg:#1A1A1A; --surface:#242424; --surface2:#2C2C2C; --line:#3A3A3A; --ink:#EDEDED; --muted:#A3A3A3;
+  --asphalt:#111111; --asphalt-ink:#F2F2F2; --asphalt-muted:#9C9C9C; --asphalt-line:rgba(255,255,255,.14); --asphalt-hl:rgba(255,255,255,.09);
+  --paint:#F7941D; --paint-ink:#1E1A08; --accent-text:#F7941D;
+  --ok:#4CC383; --ok-bg:#163424; --busy:#86A8EA; --busy-bg:#1B2943; --over:#F0556D; --over-bg:#3B1A20; --bad:#F37A6F; --bad-bg:#3F1D1A;
   --on-tone:#0E1317; --on-busy:#0E1317; --shadow:0 18px 50px rgba(0,0,0,.5);
   color-scheme:dark;
 }
@@ -48,9 +51,9 @@ button{font-family:inherit}
 .mark{flex:none;width:7px;height:34px;border-radius:1px;background:repeating-linear-gradient(180deg,var(--paint) 0 11px,transparent 11px 17px)}
 .brand strong{display:block;font-size:17px;font-weight:700;letter-spacing:.01em}
 .brand span{display:block;font-size:12.5px;color:var(--asphalt-muted)}
-.roles{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.07);padding:4px;border-radius:10px}
+.roles{display:flex;align-items:center;gap:3px;background:var(--asphalt-hl);padding:4px;border-radius:10px}
 .roles .demo{font-size:12px;color:var(--asphalt-muted);padding:0 8px 0 6px}
-.roles button{appearance:none;border:0;background:transparent;color:#C8D0D9;font-size:14.5px;font-weight:500;padding:7px 14px;border-radius:7px;cursor:pointer;position:relative}
+.roles button{appearance:none;border:0;background:transparent;color:var(--asphalt-muted);font-size:14.5px;font-weight:500;padding:7px 14px;border-radius:7px;cursor:pointer;position:relative}
 .roles button:hover{color:#fff}
 .roles button[aria-pressed="true"]{background:var(--paint);color:var(--paint-ink);font-weight:600}
 .roles .rb{position:absolute;top:-4px;right:-4px;background:var(--bad);color:#fff;font-size:11px;font-weight:700;border-radius:999px;min-width:18px;height:18px;line-height:18px;padding:0 5px;text-align:center}
@@ -58,7 +61,7 @@ button{font-family:inherit}
 .clockbox{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600}
 .clockbox button{appearance:none;border:1px solid rgba(255,255,255,.25);background:transparent;color:var(--asphalt-ink);font-size:12px;border-radius:6px;padding:3px 8px;cursor:pointer}
 .lang{display:flex;gap:2px;border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:2px}
-.lang button{appearance:none;border:0;background:transparent;color:#C8D0D9;font-size:13px;font-weight:600;padding:4px 9px;border-radius:6px;cursor:pointer;line-height:1.2}
+.lang button{appearance:none;border:0;background:transparent;color:var(--asphalt-muted);font-size:13px;font-weight:600;padding:4px 9px;border-radius:6px;cursor:pointer;line-height:1.2}
 .lang button[aria-pressed="true"]{background:var(--asphalt-ink);color:var(--asphalt)}
 .clockbox #clock{min-width:3.2em;text-align:right}
 :lang(th) body,html:lang(th) body{line-height:1.6}
@@ -83,7 +86,7 @@ html:lang(th) .stat .k,html:lang(th) th{letter-spacing:0}
 
 /* buttons, chips, plates */
 .btn{appearance:none;font-size:14px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.3;text-decoration:none;color:var(--ink);background:transparent}
-.btn.ink{background:var(--ink);color:var(--surface)}
+.btn.ink{background:var(--paint);color:var(--paint-ink)}
 .btn.ghost{border-color:var(--line);background:var(--surface)}
 .btn.ghost:hover{border-color:var(--muted)}
 .btn.tone{background:var(--tone);color:var(--on-tone)}
@@ -94,7 +97,7 @@ html:lang(th) .stat .k,html:lang(th) th{letter-spacing:0}
 .btn.wide{width:100%}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.link{appearance:none;background:none;border:0;padding:0;font-size:inherit;color:var(--busy);font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.link{appearance:none;background:none;border:0;padding:0;font-size:inherit;color:var(--accent-text);font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
 .chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:500;background:var(--surface2);color:var(--muted);white-space:nowrap;border:1px solid var(--line)}
 .chip.s-available,.chip.d-in{background:var(--ok-bg);color:var(--ok);border-color:transparent}
 .chip.s-full,.chip.info,.chip.d-move{background:var(--busy-bg);color:var(--busy);border-color:transparent}
@@ -141,15 +144,15 @@ table.fmt td,table.fmt th{font-size:13px;padding:6px 10px}
 
 /* admin */
 .admin{display:grid;grid-template-columns:196px minmax(0,1fr);gap:24px;align-items:start}
-.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);display:flex;flex-direction:column;gap:2px}
-.side button{appearance:none;border:0;border-left:3px solid transparent;background:transparent;text-align:left;font-size:14.5px;color:var(--muted);padding:9px 12px;border-radius:0 8px 8px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.side button:hover{color:var(--ink)}
-.side button[aria-current="page"]{background:var(--surface);color:var(--ink);font-weight:600;border-left-color:var(--paint)}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);display:flex;flex-direction:column;gap:2px;background:var(--asphalt);color:var(--asphalt-ink);border-radius:12px;padding:6px 8px 6px 0}
+.side button{appearance:none;border:0;border-left:3px solid transparent;background:transparent;text-align:left;font-size:14.5px;color:var(--asphalt-muted);padding:9px 12px;border-radius:0 8px 8px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.side button:hover{color:var(--asphalt-ink)}
+.side button[aria-current="page"]{background:var(--asphalt-hl);color:#fff;font-weight:600;border-left-color:var(--paint)}
 .dot{background:var(--bad);color:#fff;border-radius:999px;font-size:11px;padding:0 7px;font-weight:700;line-height:18px}
 .dot.info{background:var(--busy);color:var(--on-busy)}
 @media (max-width:900px){
   .admin{grid-template-columns:1fr;gap:14px}
-  .side{position:static;flex-direction:row;overflow-x:auto;border-bottom:1px solid var(--line)}
+  .side{position:static;flex-direction:row;overflow-x:auto;border-bottom:1px solid var(--asphalt-line);border-radius:12px;padding:0 8px}
   .side button{border-left:0;border-bottom:3px solid transparent;border-radius:0;white-space:nowrap}
   .side button[aria-current="page"]{border-bottom-color:var(--paint);background:transparent}
 }
@@ -399,8 +402,9 @@ label.inline input{width:auto}
 /* ================= v2 additions ================= */
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .amain{min-width:0}
-.side button.on{background:var(--asphalt);color:var(--asphalt-ink)}
-.side-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.side button.on{background:var(--asphalt-hl);color:#fff}
+.side-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--asphalt-line);padding-left:12px}
+.side-foot .btn.ghost{color:var(--asphalt-ink);border-color:var(--asphalt-line)}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:2px}
 .kpi .kl{font-size:13px;color:var(--muted)}.kpi strong{font-size:26px;line-height:1.15}.kpi .ks{font-size:12px;color:var(--muted)}
@@ -418,7 +422,7 @@ label.inline input{width:auto}
 .netbadge{background:var(--over);color:var(--on-tone)}.demobadge{background:var(--paint);color:var(--paint-ink)}
 .topright{display:flex;align-items:center;gap:12px;margin-left:auto;flex:0 0 auto;flex-wrap:wrap;justify-content:flex-end}
 .who{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--asphalt-ink);white-space:nowrap;flex:none}
-.link-light{background:none;border:0;color:var(--asphalt-ink);text-decoration:underline;cursor:pointer;font:inherit;padding:6px 4px;min-height:32px;white-space:nowrap;flex:none}
+.link-light{background:none;border:0;color:var(--paint);text-decoration:underline;cursor:pointer;font:inherit;padding:6px 4px;min-height:32px;white-space:nowrap;flex:none}
 /* day picker */
 .dpick{display:inline-flex;align-items:center;gap:4px;position:relative}
 .dpick .dp-btn{min-width:150px;font-weight:600}
@@ -433,10 +437,10 @@ label.inline input{width:auto}
 label .dpick{justify-self:start}
 /* menu groups */
 .navg{margin:0 0 4px}.navitems{display:flex;flex-direction:column;gap:2px}.navitems[hidden]{display:none}
-.navg.fold{border-top:1px solid var(--line);margin-top:8px;padding-top:4px}
+.navg.fold{border-top:1px solid var(--asphalt-line);margin-top:8px;padding-top:4px}
 /* one style for every group title; the selector outranks `.side button` (and its phone rules), so the collapsible titles are not item-sized */
-.side .navh,.side button.navh{appearance:none;border:0;border-left:0;background:transparent;width:100%;min-height:0;text-align:left;font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:default;border-radius:8px;line-height:1.3;white-space:nowrap}
-.side button.navh{cursor:pointer;min-height:32px}.side button.navh:hover{background:var(--surface2);color:var(--ink)}
+.side .navh,.side button.navh{appearance:none;border:0;border-left:0;background:transparent;width:100%;min-height:0;text-align:left;font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--asphalt-muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:default;border-radius:8px;line-height:1.3;white-space:nowrap}
+.side button.navh{cursor:pointer;min-height:32px}.side button.navh:hover{background:var(--asphalt-hl);color:var(--asphalt-ink)}
 .navh .chev{width:14px;height:14px;flex:none;transition:transform .15s ease}.navh .chev svg{display:block;width:14px;height:14px}.navg.open .navh .chev{transform:rotate(90deg)}
 .side .navitems button{font-size:14.5px;text-transform:none;letter-spacing:0}
 @media (max-width:760px){.side .navg{display:flex;align-items:center}.side .navitems{flex-direction:row}}
@@ -449,16 +453,18 @@ button.tile2{text-align:left;font-family:inherit;cursor:pointer;width:100%;line-
 .hbars{display:grid;gap:6px;margin-top:4px}.hb{display:grid;grid-template-columns:minmax(64px,auto) 1fr 2.5em;align-items:center;gap:8px;font-size:13px}
 .hbl{color:var(--muted);white-space:nowrap}.hbb{height:10px;background:var(--surface2);border-radius:999px;overflow:hidden}.hbb i{display:block;height:100%;background:var(--busy);border-radius:999px}.hbn{text-align:right;font-weight:600;color:var(--ink)}
 div.tile2{line-height:1.4}
+button.hb{appearance:none;border:0;background:transparent;padding:0;font:inherit;width:100%;cursor:pointer;text-align:left}button.hb:hover .hbl{color:var(--ink);text-decoration:underline}
+.persoi .ph.pad{padding:14px 16px 0}
 /* in-out summary tab */
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 12px}
 .seg button{appearance:none;border:0;background:var(--surface);color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;padding:8px 14px;cursor:pointer;min-height:40px}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
 .stack{width:100%;height:auto;display:block}.stack .ax{fill:var(--muted);font-size:10px;font-family:inherit}.stack .grid{stroke:var(--line);stroke-width:1}
 .stack rect{cursor:pointer}.stack rect:hover{opacity:.8}
-.c-member{fill:var(--busy)}.c-guest{fill:var(--over)}.c-delivery{fill:var(--ok)}.c-service{fill:#7A5CC6}.c-unknown{fill:var(--bad)}
+.c-member{fill:var(--busy)}.c-guest{fill:var(--paint)}.c-delivery{fill:var(--ok)}.c-service{fill:#7A5CC6}.c-unknown{fill:var(--bad)}
 .stack .outs{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}.stack .outdot{fill:var(--ink)}.stack .nodata{fill:none;stroke:var(--muted);stroke-dasharray:2 2;cursor:default}
-.legend .sw.c-member{background:var(--busy)}.legend .sw.c-guest{background:var(--over)}.legend .sw.c-delivery{background:var(--ok)}.legend .sw.c-service{background:#7A5CC6}.legend .sw.c-unknown{background:var(--bad)}.legend .sw.c-out{background:var(--ink);height:3px}
-.numlink{appearance:none;background:none;border:0;padding:0;font:inherit;color:var(--busy);font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.legend .sw.c-member{background:var(--busy)}.legend .sw.c-guest{background:var(--paint)}.legend .sw.c-delivery{background:var(--ok)}.legend .sw.c-service{background:#7A5CC6}.legend .sw.c-unknown{background:var(--bad)}.legend .sw.c-out{background:var(--ink);height:3px}
+.numlink{appearance:none;background:none;border:0;padding:0;font:inherit;color:var(--accent-text);font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
 /* event filters */
 .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .chips button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:4px 12px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;min-height:32px}
@@ -489,19 +495,19 @@ div.tile2{line-height:1.4}
 .tbl-wrap.sticky{max-height:72vh;overflow:auto}.tbl-wrap.sticky th{position:sticky;top:0;z-index:1}
 .demo-banner{margin-bottom:14px;border:2px solid var(--over)}
 /* single-file demo: banner above the header */
-.demobar{position:sticky;top:0;z-index:11;background:var(--paint);color:var(--paint-ink);display:flex;gap:8px 16px;justify-content:center;align-items:center;flex-wrap:wrap;padding:7px 12px;font-size:13.5px;min-height:36px}
-.demobar .link-light{color:var(--paint-ink);min-height:28px;padding:2px 4px}
+.demobar{position:sticky;top:0;z-index:11;background:var(--asphalt);color:var(--paint);border-bottom:1px solid var(--asphalt-line);display:flex;gap:8px 16px;justify-content:center;align-items:center;flex-wrap:wrap;padding:7px 12px;font-size:13.5px;min-height:36px}
+.demobar .link-light{color:var(--paint);min-height:28px;padding:2px 4px}
 body.demo-shim .top{top:calc(env(safe-area-inset-top,0px) + 36px)}
 /* phone layout (under 640 px): menu button instead of the sidebar, two tiles per row, tables as cards, 44 px targets */
 .menubtn{display:none}
 @media (max-width:639px){
   .admin{display:block}
   .menubtn{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;margin-bottom:10px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:inherit;font-size:16px;font-weight:600;text-align:left;cursor:pointer}
-  .side{display:none;position:static;flex-direction:column;overflow:visible;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:8px;margin-bottom:12px}
+  .side{display:none;position:static;flex-direction:column;overflow:visible;border:1px solid var(--asphalt);border-radius:12px;background:var(--asphalt);padding:8px;margin-bottom:12px}
   .side.open{display:flex}
   .side .navg{display:block}.side .navitems{flex-direction:column}
   .side button{min-height:44px;white-space:normal;border-left:3px solid transparent;border-bottom:0;border-radius:0 8px 8px 0}
-  .side button[aria-current="page"]{border-left-color:var(--paint);border-bottom-color:transparent;background:var(--surface2)}
+  .side button[aria-current="page"]{border-left-color:var(--paint);border-bottom-color:transparent;background:var(--asphalt-hl)}
   .side-foot{display:block}
   .daytiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1308,6 +1314,10 @@ function areaName(a) {
   'cs.k.seen': ['Resident cars through the gate on this day', 'รถลูกบ้านที่ผ่านประตูในวันนี้'], 'cs.k.unseen': ['Registered cars not in the log for 30 days', 'รถลงทะเบียนที่ไม่พบในบันทึก 30 วัน'],
   'cs.n0': ['0 cars', '0 คัน'], 'cs.n1': ['1 car', '1 คัน'], 'cs.n2': ['2 cars', '2 คัน'], 'cs.n3': ['3+ cars', '3 คันขึ้นไป'],
   'cs.inhomes': ['in {n} homes', 'ใน {n} บ้าน'], 'cs.ofreg': ['of {n} registered', 'จาก {n} คันที่ลงทะเบียน'], 'cs.ofhomes': ['of {n} homes', 'จาก {n} บ้าน'], 'cs.parking': ['{n} cars, parking for {q}', '{n} คัน ที่จอด {q} คัน'],
+  'cs.soi': ['Per soi', 'ต่อซอย'], 'cs.th.reg': ['Registered cars', 'รถที่ลงทะเบียน'], 'cs.th.spaces': ['Parking spaces', 'ที่จอด'], 'cs.th.over': ['Houses over parking', 'บ้านที่รถเกินที่จอด'], 'cs.th.seen': ['Resident cars through the gate', 'รถลูกบ้านที่ผ่านประตู'],
+  'vf.b.all': ['Homes with any number of cars', 'บ้านทุกแบบ'], 'vf.b.0': ['Homes with 0 cars', 'บ้านที่มีรถ 0 คัน'], 'vf.b.1': ['Homes with 1 car', 'บ้านที่มีรถ 1 คัน'], 'vf.b.2': ['Homes with 2 cars', 'บ้านที่มีรถ 2 คัน'], 'vf.b.3': ['Homes with 3+ cars', 'บ้านที่มีรถ 3 คันขึ้นไป'], 'vf.b.over': ['Homes with more cars than parking', 'บ้านที่รถเกินที่จอด'],
+  'vf.s.all': ['In the log or not', 'พบหรือไม่พบใน 30 วัน'], 'vf.s.seen': ['Seen in 30 days', 'เห็นใน 30 วัน'], 'vf.s.unseen': ['Not in the log for 30 days', 'ไม่พบใน 30 วัน'], 'vf.s.day': ['{s} to {d}', '{s} ถึง {d}'],
+  'vf.allkinds': ['all vehicle types', 'ทุกประเภทรถ'], 'vf.count': ['{n} vehicles', '{n} คัน'],
   'cs.last': ['last in the log {d}', 'พบในบันทึกล่าสุด {d}'], 'cs.never': ['never in the log', 'ไม่เคยพบในบันทึก'], 'cs.none': ['None', 'ไม่มี'], 'cs.nohome': ['No houses yet.', 'ยังไม่มีบ้าน'],
   'ev.from': ['From', 'ตั้งแต่'], 'ev.to': ['To', 'ถึง'], 'ev.soi': ['Soi', 'ซอย'], 'ev.allsoi': ['All sois', 'ทุกซอย'], 'ev.clear': ['Clear filters', 'ล้างตัวกรอง'],
   'ev.alldays': ['all days', 'ทุกวัน'], 'ev.allcats': ['all types', 'ทุกประเภท'], 'ev.hourf': ['{h}:00–{h}:59', '{h}:00–{h}:59'], 'ev.showing': ['Showing: {s}', 'กำลังแสดง: {s}'], 'ev.search2': ['plate or house "{q}"', 'ทะเบียนหรือบ้าน "{q}"'],
@@ -4944,7 +4954,7 @@ var qrcode = function() {
 /* Village Gate v2 client core. The server is the authority; the browser keeps a copy of the
    state so screens are instant, and the gate phone can keep recording when the network drops. */
 const $ = (s, r = document) => r.querySelector(s);
-const UI = { atab: 'day', day: null, navOpen: {}, homePage: 1, vehPage: 1, homeQ: '', homeF: 'all', zone: 'all', vehQ: '', vehF: 'all', evQ: '', evType: 'all', evDir: 'all', evDay: '', evFrom: '', evTo: '', evCats: [], evSoi: 'all', evHour: '', sumView: '30d',
+const UI = { atab: 'day', day: null, navOpen: {}, homePage: 1, vehPage: 1, homeQ: '', homeF: 'all', zone: 'all', vehQ: '', vehF: 'all', vehSoi: 'all', vehKinds: [], vehBucket: 'all', vehSeen: 'all', evQ: '', evType: 'all', evDir: 'all', evDay: '', evFrom: '', evTo: '', evCats: [], evSoi: 'all', evHour: '', sumView: '30d',
   gq: '', gsel: null, imp: null, impResult: null, impText: '', impFile: null, repDay: null, setupPrev: null, setupDone: null, photo: null, revealed: {}, dlRev: -1, loginStep: 'secret', pendingDevice: null, totpSetup: null };
 let ME = null, SESSION = null, VERSION = 0, MODAL = null, ONLINE = true, HTTPS = false, DEMO = false, ticks = 0, STAFF = null, BACKUPS = null, EVQ = null, REPORT = null, BATCHES = null, BOOTED = false;
 const ACT = {}, INP = {}, CHG = {};
@@ -5578,19 +5588,32 @@ ACT['home-del-go'] = async v => { const j = await apiAct('homeDel', { id: v }); 
 /* ----- vehicles ----- */
 AVIEWS.vehicles = () => {
   const reqs = (S.requests || []).filter(q => q.status === 'pending');
-  const qq = UI.vehQ.trim(), q = pk(qq);
+  const qq = UI.vehQ.trim(), q = pk(qq), day = UI.day || today();
   let list = S.vehicles;
   if (q) list = list.filter(v => pk(v.plate).includes(q) || v.home === qq || String(v.model || '').toLowerCase().includes(qq.toLowerCase()));
   if (UI.vehF === 'inside') list = list.filter(v => D.pres.has(pk(v.plate)));
   else if (UI.vehF === 'outside') list = list.filter(v => !D.pres.has(pk(v.plate)));
   else if (UI.vehF === 'blocked') list = list.filter(v => v.blacklisted);
   else if (UI.vehF === 'nohouse') list = list.filter(v => !D.home[v.home]);
+  if (UI.vehSoi !== 'all') list = list.filter(v => areaOfHome(v.home) === UI.vehSoi);
+  if (UI.vehKinds.length) list = list.filter(v => UI.vehKinds.includes(v.kind || 'car'));
+  if (UI.vehBucket !== 'all') { const n = carsPerHome(); list = list.filter(v => UI.vehBucket === 'over' ? (n[v.home] || 0) > quotaOf(v.home) : Math.min(3, n[v.home] || 0) === +UI.vehBucket); }
+  /* seen / not seen in the 30 gate days ending on the day page's day: needs /api/cars for that day (client-side filter on seen30) */
+  const carsReady = CARSUM && CARSUM.day === day;
+  if (UI.vehSeen !== 'all') { if (!carsReady) { if (!UI.carsLoading) loadCars(day); list = []; } else { const had = new Set(CARSUM.seen30); list = list.filter(v => had.has(pk(v.plate)) === (UI.vehSeen === 'seen')); } }
   const pages = Math.max(1, Math.ceil(list.length / PAGE)), page = Math.min(Math.max(1, UI.vehPage || 1), pages), shown = list.slice((page - 1) * PAGE, page * PAGE);
   return `${head('vehicles', t('vh.sub2', { n: S.vehicles.length }))}
   ${reqs.length ? `<div class="panel"><h2>${t('vh.reqs', { n: reqs.length })}</h2><ul class="vlist">${reqs.map(r => `<li>${plate(r.plate, r.prov, 'sm')}<span>${homeLink(r.home)} ${esc(dt(r.model))} ${esc(dt(r.color))}</span><span class="btns"><button class="btn sm ink" data-act="req-ok" data-v="${r.id}">${t('btn.approve')}</button><button class="btn sm ghost" data-act="req-no" data-v="${r.id}">${t('btn.reject')}</button></span></li>`).join('')}</ul></div>` : ''}
-  <div class="filters"><input type="search" placeholder="${esc(t('vh.search'))}" value="${esc(UI.vehQ)}" data-inp="vehQ" aria-label="${esc(t('vh.search'))}">
-  <select data-chg="vehF" aria-label="${esc(t('th.status'))}">${['all', 'inside', 'outside', 'blocked', 'nohouse'].map(k => opt(k, t('vf.f.' + k), UI.vehF === k)).join('')}</select>
-  <button class="btn ink" data-act="veh-add">${t('vf.add')}</button><button class="btn ghost" data-act="block">${t('bl.add')}</button></div>
+  <div class="evfilters vehfilters">
+    <div class="row"><input type="search" placeholder="${esc(t('vh.search'))}" value="${esc(UI.vehQ)}" data-inp="vehQ" aria-label="${esc(t('vh.search'))}">
+      <select data-chg="vehF" aria-label="${esc(t('th.status'))}">${['all', 'inside', 'outside', 'blocked', 'nohouse'].map(k => opt(k, t('vf.f.' + k), UI.vehF === k)).join('')}</select>
+      <select id="vehSoi" data-chg="vehSoi" aria-label="${esc(t('ev.soi'))}">${opt('all', t('ev.allsoi'), UI.vehSoi === 'all')}${D.areas.map(a => opt(a.name, areaName(a.name), UI.vehSoi === a.name)).join('')}</select>
+      <select id="vehBucket" data-chg="vehBucket" aria-label="${esc(t('cs.k.perhome'))}">${['all', '0', '1', '2', '3', 'over'].map(k => opt(k, t('vf.b.' + k), UI.vehBucket === k)).join('')}</select>
+      <select id="vehSeen" data-chg="vehSeen" aria-label="${esc(t('cs.k.unseen'))}">${['all', 'seen', 'unseen'].map(k => opt(k, t('vf.s.' + k), UI.vehSeen === k)).join('')}</select></div>
+    <div class="row"><div class="chips" role="group" aria-label="${esc(t('vf.kind'))}">${VEH_KINDS.map(k => `<button type="button" data-act="veh-kind" data-v="${k}" aria-pressed="${UI.vehKinds.includes(k)}">${t('vk.' + k)}</button>`).join('')}</div>
+      <button class="btn ghost" data-act="veh-clear">${t('ev.clear')}</button><button class="btn ink" data-act="veh-add">${t('vf.add')}</button><button class="btn ghost" data-act="block">${t('bl.add')}</button></div>
+  </div>
+  <p class="evsentence vehsentence">${t('ev.showing', { s: vehSentence(day, UI.vehSeen !== 'all' && !carsReady ? null : list.length) })}</p>
   <div class="panel flush"><div class="tbl-wrap sticky cards"><table><thead><tr><th>${t('th.plate')}</th><th>${t('th.house')}</th><th>${t('th.vehicle')}</th><th>${t('th.now')}</th><th></th></tr></thead><tbody>
   ${shown.map(v => { const cur = D.pres.get(pk(v.plate)); return `<tr>${td(t('th.plate'), `${plateBtn(v.plate, v.prov)}${v.blacklisted ? ' ' + chip(t('hd.blocked'), 'bad') : ''}`)}${td(t('th.house'), D.home[v.home] ? homeLink(v.home) : `<span class="chip bad">${esc(v.home)}</span>`)}${td(t('th.vehicle'), `${carDesc(v)}<br><span class="muted sm">${t('vk.' + (v.kind || 'car'))}</span>`)}${td(t('th.now'), cur ? esc(locText(cur)) + '<br><span class="muted sm">' + t('vh.since2', { t: fmtT(cur.since) }) + '</span>' : `<span class="muted">${t('vh.outside')}</span>`)}<td class="act"><button class="btn sm ghost" data-act="veh-edit" data-v="${v.id}">${t('hm.edit')}</button></td></tr>`; }).join('') || `<tr><td colspan="5" class="empty">${t('vh.none')}</td></tr>`}
   </tbody></table></div>${pager('veh-page', page, pages)}</div>
@@ -5598,7 +5621,32 @@ AVIEWS.vehicles = () => {
 };
 INP.vehQ = v => { UI.vehQ = v; UI.vehPage = 1; render(); };
 CHG.vehF = v => { UI.vehF = v; UI.vehPage = 1; render(); };
+CHG.vehSoi = v => { UI.vehSoi = v; UI.vehPage = 1; render(); };
+CHG.vehBucket = v => { UI.vehBucket = v; UI.vehPage = 1; render(); };
+CHG.vehSeen = v => { UI.vehSeen = v; UI.vehPage = 1; render(); };
+ACT['veh-kind'] = v => { UI.vehKinds = UI.vehKinds.includes(v) ? UI.vehKinds.filter(x => x !== v) : [...UI.vehKinds, v]; UI.vehPage = 1; render(); };
+ACT['veh-clear'] = () => gotoVehicles({});
 ACT['veh-page'] = v => { UI.vehPage = +v; render(); };
+const areaOfHome = h => (h && D.home[h] ? D.home[h].area || '' : '');
+const carsPerHome = () => { const n = {}; for (const v of S.vehicles) n[v.home] = (n[v.home] || 0) + 1; return n; };
+/* the active vehicle filters as one sentence; n = the rows shown (null while the 30-day data is still loading) */
+function vehSentence(day, n) {
+  const parts = [];
+  if (UI.vehF !== 'all') parts.push(t('vf.f.' + UI.vehF));
+  parts.push(UI.vehSoi === 'all' ? t('ev.allsoi') : esc(areaName(UI.vehSoi)));
+  parts.push(UI.vehKinds.length ? UI.vehKinds.map(k => t('vk.' + k)).join(' + ') : t('vf.allkinds'));
+  if (UI.vehBucket !== 'all') parts.push(t('vf.b.' + UI.vehBucket));
+  if (UI.vehSeen !== 'all') parts.push(t('vf.s.day', { s: t('vf.s.' + UI.vehSeen), d: fmtDay(day) }));
+  if (UI.vehQ.trim()) parts.push(t('ev.search2', { q: esc(UI.vehQ.trim()) }));
+  parts.push(n === null ? t('loading') : t('vf.count', { n }));
+  return parts.join(', ');
+}
+/* every registry number lands here: set the vehicle filters and open the list. f = { soi, kinds, bucket, seen, q } */
+function gotoVehicles(f) {
+  UI.vehQ = f.q || ''; UI.vehF = 'all'; UI.vehSoi = f.soi || 'all'; UI.vehKinds = Array.isArray(f.kinds) ? f.kinds.slice() : []; UI.vehBucket = f.bucket === undefined || f.bucket === null || f.bucket === '' ? 'all' : String(f.bucket); UI.vehSeen = f.seen || 'all'; UI.vehPage = 1;
+  UI.atab = 'vehicles'; UI.menuOpen = false; if (MODAL) closeModal(); render(); window.scrollTo(0, 0);
+}
+ACT['veh-drill'] = v => { const q = new URLSearchParams(v || ''); gotoVehicles({ soi: q.get('soi') || 'all', kinds: q.get('kind') ? [q.get('kind')] : [], bucket: q.get('bucket') || 'all', seen: q.get('seen') || 'all' }); };
 ACT['req-ok'] = v => act('reqDecide', { id: +v, ok: true });
 ACT['req-no'] = v => act('reqDecide', { id: +v, ok: false });
 function vehForm(v) {
@@ -5861,7 +5909,7 @@ async function loadCars(day) {
   UI.carsLoading = true;
   try { const j = await api('GET', '/api/cars?day=' + day); if (j.day) CARSUM = j; } catch (e) { /* offline */ }
   UI.carsLoading = false;
-  if (UI.atab === 'cars') render();
+  if (UI.atab === 'cars' || UI.atab === 'vehicles') render();
 }
 /* c = /api/cars: { day, seen: plate keys with a gate row on the day, seen30: the same for the 30 gate days ending there, last: { key: last row time } for registered cars outside those 30 days } */
 function carSummary(c) {
@@ -5874,24 +5922,39 @@ function carSummary(c) {
   const unseenV = S.vehicles.filter(v => !seen30.has(pk(v.plate))).map(v => ({ ...v, last: last[pk(v.plate)] || null })).sort((a, b) => (a.last || 0) - (b.last || 0) || cmp(a.home, b.home));
   return { reg: S.vehicles.length, homesWithCars: Object.keys(perHome).filter(h => D.home[h]).length, buckets, over, kinds, seenV, unseenV };
 }
-const hbars = rows => { const max = Math.max(1, ...rows.map(r => r.n)); return `<div class="hbars">${rows.map(r => `<div class="hb"><span class="hbl">${r.label}</span><span class="hbb"><i style="width:${Math.round(r.n / max * 100)}%"></i></span><span class="hbn">${r.n}</span></div>`).join('')}</div>`; };
+/* per soi: registered cars, parking spaces (sum of the house quotas), houses over parking, resident cars through the gate on the day */
+function carsBySoi(c) {
+  const rows = {}, row = a => rows[a] || (rows[a] = { soi: a, reg: 0, spaces: 0, over: 0, seen: 0 });
+  for (const a of D.areas) row(a.name);
+  for (const h of S.homes) row(h.area || '').spaces += quotaOf(h.id);
+  for (const v of S.vehicles) row(areaOfHome(v.home)).reg++;
+  for (const x of c.over) row(areaOfHome(x.id)).over++;
+  for (const v of c.seenV) row(areaOfHome(v.home)).seen++;
+  return Object.values(rows);
+}
+const hbars = rows => { const max = Math.max(1, ...rows.map(r => r.n)); return `<div class="hbars">${rows.map(r => `<${r.dv !== undefined ? `button type="button" class="hb" data-act="veh-drill" data-v="${esc(r.dv)}"` : 'div class="hb"'}><span class="hbl">${r.label}</span><span class="hbb"><i style="width:${Math.round(r.n / max * 100)}%"></i></span><span class="hbn">${r.n}</span></${r.dv !== undefined ? 'button' : 'div'}>`).join('')}</div>`; };
 AVIEWS.cars = () => {
   const day = UI.day || today(), top = head('cars', t('cs.sub'));
   if (!S.homes.length) return `${top}<div class="panel"><p class="empty">${t('cs.nohome')}</p></div>`;
   if (!CARSUM || CARSUM.day !== day) { if (!UI.carsLoading) loadCars(day); return `${top}<p class="muted">${t('loading')}</p>`; }
   const c = carSummary(CARSUM);
   const tile = (k, inner, act, dv) => (act ? `<button class="tile2" data-act="${act}" data-v="${esc(dv)}">` : '<div class="tile2">') + `<span class="kl">${t('cs.k.' + k)}</span>${inner}` + (act ? '</button>' : '</div>');
+  const soi = carsBySoi(c), tot = k => soi.reduce((a, r) => a + r[k], 0), nl = (act, dv, v) => `<button class="numlink" data-act="${act}" data-v="${esc(dv)}">${v}</button>`;
+  const soiRows = soi.map(r => { const qs = r.soi ? 'soi=' + encodeURIComponent(r.soi) : ''; return `<tr>${td(areaLabel(), r.soi ? esc(areaName(r.soi)) : `<span class="muted">${t('none')}</span>`)}${td(t('cs.th.reg'), nl('veh-drill', qs, r.reg))}${td(t('cs.th.spaces'), r.soi ? nl('homes-zone', r.soi, r.spaces) : String(r.spaces))}${td(t('cs.th.over'), nl('veh-drill', qs + '&bucket=over', r.over))}${td(t('cs.th.seen'), nl('cars-soi', `${day}|${r.soi}`, r.seen))}</tr>`; }).join('');
+  const perSoi = `<div class="panel flush persoi"><div class="ph pad"><h2>${t('cs.soi')}</h2></div><div class="tbl-wrap sticky cards"><table><thead><tr><th>${esc(areaLabel())}</th><th>${t('cs.th.reg')}</th><th>${t('cs.th.spaces')}</th><th>${t('cs.th.over')}</th><th>${t('cs.th.seen')}</th></tr></thead><tbody>${soiRows}
+  <tr><td><strong>${t('sum.total')}</strong></td><td><strong>${tot('reg')}</strong></td><td><strong>${tot('spaces')}</strong></td><td><strong>${tot('over')}</strong></td><td><strong>${tot('seen')}</strong></td></tr></tbody></table></div></div>`;
   const num = (v, below) => `<strong>${v}</strong><span class="nodelta">${below}</span>`;
   const carList = vs => (vs.length ? `<ul class="vlist">${vs.map(v => `<li>${plateBtn(v.plate, v.prov)}<span>${homeLink(v.home)} <span class="muted sm">${carDesc(v)}</span></span>${'last' in v ? `<span class="muted sm">${v.last ? t('cs.last', { d: fmtDay(gateDayOf(v.last, S.settings)) }) : t('cs.never')}</span>` : ''}</li>`).join('')}</ul>` : `<p class="empty">${t('cs.none')}</p>`);
   return `${top}<p class="muted">${t('cs.day', { d: fmtDay(day) })}</p>
   <div class="daytiles cars">
-    ${tile('reg', num(c.reg, t('cs.inhomes', { n: c.homesWithCars })), 'atab', 'vehicles')}
-    ${tile('perhome', hbars(c.buckets.map((n, i) => ({ label: t('cs.n' + i), n }))))}
-    ${tile('over', num(c.over.length, t('cs.ofhomes', { n: S.homes.length })))}
-    ${tile('kind', hbars(c.kinds.map(x => ({ label: t('vk.' + x.k), n: x.n }))))}
+    ${tile('reg', num(c.reg, t('cs.inhomes', { n: c.homesWithCars })), 'veh-drill', '')}
+    ${tile('perhome', hbars(c.buckets.map((n, i) => ({ label: t('cs.n' + i), n, dv: 'bucket=' + i }))))}
+    ${tile('over', num(c.over.length, t('cs.ofhomes', { n: S.homes.length })), 'veh-drill', 'bucket=over')}
+    ${tile('kind', hbars(c.kinds.map(x => ({ label: t('vk.' + x.k), n: x.n, dv: 'kind=' + x.k }))))}
     ${tile('seen', num(c.seenV.length, t('cs.ofreg', { n: c.reg })), 'cars-drill', day)}
-    ${tile('unseen', num(c.unseenV.length, t('cs.ofreg', { n: c.reg })))}
+    ${tile('unseen', num(c.unseenV.length, t('cs.ofreg', { n: c.reg })), 'veh-drill', 'seen=unseen')}
   </div>
+  ${perSoi}
   <div class="grid2">
     <div class="panel"><h2>${t('cs.k.over')} (${c.over.length})</h2>${c.over.length ? `<ul class="vlist">${c.over.map(x => `<li>${homeLink(x.id)}<span>${t('cs.parking', { n: x.n, q: x.q })}</span></li>`).join('')}</ul>` : `<p class="empty">${t('cs.none')}</p>`}</div>
     <div class="panel"><h2>${t('cs.k.unseen')} (${c.unseenV.length})</h2>${carList(c.unseenV)}</div>
@@ -5899,6 +5962,8 @@ AVIEWS.cars = () => {
   <div class="panel"><h2>${t('cs.k.seen')} (${c.seenV.length})</h2>${carList(c.seenV)}</div>`;
 };
 ACT['cars-drill'] = day => gotoEvents({ from: day, to: day, dir: 'all', cats: ['member'] });
+ACT['cars-soi'] = v => { const i = v.indexOf('|'), day = v.slice(0, i), soi = v.slice(i + 1); gotoEvents({ from: day, to: day, dir: 'all', cats: ['member'], soi: soi || 'all' }); };
+ACT['homes-zone'] = v => { UI.zone = v; UI.homePage = 1; UI.homeQ = ''; UI.homeF = 'all'; UI.atab = 'homes'; UI.menuOpen = false; render(); window.scrollTo(0, 0); };
 
 /* ----- gate log import (lives on the day page; these handlers are shared with it) ----- */
 async function loadBatches() { try { const j = await api('GET', '/api/import/batches'); if (j.rows) BATCHES = j.rows; } catch (e) { /* offline */ } }
