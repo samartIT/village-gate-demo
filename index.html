@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-10-31T18:19"><meta name="theme-color" content="#1f2a33"><style>
+<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-11-01T01:18"><meta name="theme-color" content="#1f2a33"><style>
 /* Village Gate v2. Base styles from the prototype, v2 additions at the end. */
 :root{
   --bg:#ECEFF2; --surface:#FFFFFF; --surface2:#F4F6F8; --line:#D4DBE2; --ink:#17212B; --muted:#5A6676;
@@ -432,11 +432,34 @@ label.inline input{width:auto}
 .dpcal .dpg button:disabled{color:var(--line);cursor:default}
 label .dpick{justify-self:start}
 /* menu groups */
-.navg{margin-bottom:6px}.navitems{display:flex;flex-direction:column;gap:2px}.navitems[hidden]{display:none}
+.navg{margin:0 0 4px}.navitems{display:flex;flex-direction:column;gap:2px}.navitems[hidden]{display:none}
+.navg.fold{border-top:1px solid var(--line);margin-top:8px;padding-top:4px}
+.navh{appearance:none;border:0;background:transparent;width:100%;text-align:left;font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:default;border-radius:8px;line-height:1.3}
+button.navh{cursor:pointer}.side button.navh:hover{background:var(--surface2);color:var(--ink)}
+.navh .chev{width:14px;height:14px;flex:none;transition:transform .15s ease}.navh .chev svg{display:block;width:14px;height:14px}.navg.open .navh .chev{transform:rotate(90deg)}
+.side .navitems button{font-size:14.5px;text-transform:none;letter-spacing:0}
 @media (max-width:760px){.side .navg{display:flex;align-items:center}.side .navitems{flex-direction:row}}
-.navh{appearance:none;border:0;background:transparent;width:100%;text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;cursor:default;font-family:inherit}
-button.navh{cursor:pointer}.side button.navh:hover{color:var(--ink)}.navh .caret{font-size:11px}
 /* day review page */
+button.tile2{text-align:left;font-family:inherit;cursor:pointer;width:100%;line-height:1.4}button.tile2:hover{border-color:var(--ink)}
+.tile2 .nodelta{font-size:12.5px;color:var(--muted)}.tile2 strong.na{color:var(--muted)}
+.mbars span.nodata{background:transparent;border:1px dotted var(--muted);border-radius:3px}.mbars span.nodata i{display:none}
+.notable summary button.link{text-align:left}
+/* in-out summary tab */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 12px}
+.seg button{appearance:none;border:0;background:var(--surface);color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;padding:8px 14px;cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.stack{width:100%;height:auto;display:block}.stack .ax{fill:var(--muted);font-size:10px;font-family:inherit}.stack .grid{stroke:var(--line);stroke-width:1}
+.stack rect{cursor:pointer}.stack rect:hover{opacity:.8}
+.c-member{fill:var(--busy)}.c-guest{fill:var(--over)}.c-delivery{fill:var(--ok)}.c-service{fill:#7A5CC6}.c-unknown{fill:var(--bad)}
+.stack .outs{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}.stack .outdot{fill:var(--ink)}.stack .nodata{fill:none;stroke:var(--muted);stroke-dasharray:2 2;cursor:default}
+.legend .sw.c-member{background:var(--busy)}.legend .sw.c-guest{background:var(--over)}.legend .sw.c-delivery{background:var(--ok)}.legend .sw.c-service{background:#7A5CC6}.legend .sw.c-unknown{background:var(--bad)}.legend .sw.c-out{background:var(--ink);height:3px}
+.numlink{appearance:none;background:none;border:0;padding:0;font:inherit;color:var(--busy);font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+/* event filters */
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chips button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:4px 12px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;min-height:32px}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.evfilters{display:grid;gap:10px;margin-bottom:10px}.evfilters .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.evfilters .row label{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}.evfilters select{width:auto}.evfilters input[type=search]{max-width:260px}
+.evsentence{font-size:14px;margin:0 0 10px;color:var(--ink)}
 .daytiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .tile2{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:3px;color:var(--busy)}
 .tile2 .kl{font-size:13px;color:var(--muted)}.tile2 strong{font-size:28px;line-height:1.1;color:var(--ink)}
@@ -928,7 +951,7 @@ Object.assign(TR, {
   'wk.homeinfo': [p => `${p.id}, ${p.area}: ${p.owner}, phone ${p.phone}`, p => `${p.id} ${p.area}: ${p.owner} โทร ${p.phone}`],
   'loc.unknown': ['Not linked to any house', 'ไม่ผูกกับบ้านใด'], 'pk.unknown': ['No house', 'ไม่มีบ้าน'], 'evr.unknown': ['Not linked to a house', 'ไม่ผูกกับบ้าน'],
   'note.cam': ['Read by the gate camera, no guard record', 'กล้องอ่านป้ายทะเบียนได้ แต่ไม่มีบันทึกจาก รปภ.'],
-  'tab.security': ['Security', 'ความปลอดภัย'], 'tab.reports': ['Reports', 'รายงาน'], 'tab.setup': ['Village setup', 'ตั้งค่าหมู่บ้าน'],
+  'tab.security': ['Security', 'ความปลอดภัย'], 'tab.reports': ['In-out summary', 'สรุปเข้า-ออก'], 'tab.setup': ['Village setup', 'ตั้งค่าหมู่บ้าน'],
   // security
   'sec.sub': ['Every car inside must be linked to a house or carry a valid guest pass. Anything else needs checking now.', 'รถทุกคันในหมู่บ้านต้องผูกกับบ้าน หรือมีบัตรผ่านแขกที่ใช้ได้ หากไม่ใช่ ต้องตรวจสอบทันที'],
   'sec.banner': [p => `${p.n} car${p.n > 1 ? 's' : ''} inside ${p.n > 1 ? 'are' : 'is'} not linked to any house.`, p => `มีรถ ${p.n} คันในหมู่บ้านที่ไม่ผูกกับบ้านใด`],
@@ -1247,11 +1270,12 @@ function areaName(a) {
   'day.noimport': ['No gate file has been imported for this day yet.', 'ยังไม่ได้นำเข้าไฟล์ประตูของวันนี้'],
   'day.drop': ['Drop the gate CSV file here, or choose it', 'ลากไฟล์ CSV ของประตูมาวางที่นี่ หรือเลือกไฟล์'], 'day.another': ['Import another file', 'นำเข้าไฟล์เพิ่ม'],
   'day.k.entries': ['Cars in', 'รถเข้า'], 'day.k.exits': ['Cars out', 'รถออก'], 'day.k.unknown': ['Unknown plates', 'ทะเบียนไม่รู้จัก'], 'day.k.nonMember': ['Non-resident cars', 'รถที่ไม่ใช่ลูกบ้าน'],
-  'day.k.overHomes': ['Houses over quota', 'บ้านที่รถเกินสิทธิ์'], 'day.k.noExit': ['Cars with no exit record', 'รถที่ไม่มีบันทึกออก'], 'day.k.overstay': ['Visitors over their time', 'ผู้มาติดต่อที่อยู่เกินกำหนด'],
+  'day.k.overHomes': ['Houses over quota', 'บ้านที่รถเกินสิทธิ์'], 'day.k.noExit': ['Non-resident cars with no exit record', 'รถนอกลูกบ้านที่ไม่มีบันทึกออก'], 'day.k.overstay': ['Visitors out late or with no exit record', 'ผู้มาติดต่อที่ออกช้ากว่ากำหนดหรือไม่มีบันทึกออก'],
+  'day.noprev': ['no file for the day before', 'ไม่มีไฟล์วันก่อน'], 'day.nosnap': ['no end-of-day data', 'ไม่มีข้อมูลสิ้นวัน'], 'day.nodata': ['no file', 'ไม่มีไฟล์'], 'day.stale': ['resident, entered over 24 h ago', 'ลูกบ้าน เข้ามาเกิน 24 ชม.'],
   'day.delta': ['vs {d}', 'เทียบกับ {d}'], 'day.same': ['same as the day before', 'เท่ากับวันก่อน'], 'day.week': ['This week', 'สัปดาห์นี้'],
   'day.notable': ['Worth a look', 'น่าสังเกต'], 'day.notable.p': ['Sorted by the change from the day before, largest change first.', 'เรียงตามการเปลี่ยนแปลงจากวันก่อน มากสุดก่อน'],
   'day.n.unknown': ['Unknown plates: {n} ({nw} new, {nr} seen before)', 'ทะเบียนไม่รู้จัก {n} คัน (ใหม่ {nw} คัน, เคยเห็น {nr} คัน)'],
-  'day.n.over': ['Houses newly over quota: {n}', 'บ้านที่เพิ่งมีรถเกินสิทธิ์ {n} หลัง'], 'day.n.noexit': ['Cars with no exit record: {n}', 'รถที่ไม่มีบันทึกออก {n} คัน'],
+  'day.n.over': ['Houses newly over quota: {n}', 'บ้านที่เพิ่งมีรถเกินสิทธิ์ {n} หลัง'], 'day.n.noexit': ['Non-resident cars with no exit record: {n}', 'รถนอกลูกบ้านที่ไม่มีบันทึกออก {n} คัน'],
   'day.n.shift': ['Non-resident entries, {shift} shift ({a}–{b}): {n}', 'รถที่ไม่ใช่ลูกบ้านเข้า กะ{shift} ({a}–{b}) {n} คัน'], 'day.shift.day': ['day', 'กลางวัน'], 'day.shift.night': ['night', 'กลางคืน'],
   'day.new': ['new', 'ใหม่'], 'day.repeat': ['seen before', 'เคยเห็น'], 'day.times': ['{n} times', '{n} ครั้ง'],
   'day.note.t': ['Points to watch today', 'ประเด็นที่จะดูวันนี้'], 'day.note.p': ['Written for this day. Tomorrow it shows next to this day’s numbers.', 'บันทึกของวันนี้ พรุ่งนี้จะแสดงคู่กับตัวเลขของวันนี้'],
@@ -1265,6 +1289,14 @@ function areaName(a) {
   'pg.page': ['Page {p} of {n}', 'หน้า {p} จาก {n}'], 'pg.prev': ['Previous', 'ก่อนหน้า'], 'pg.next': ['Next', 'ถัดไป'],
   // single-file demo
   'demo.no': ['Not available in the demo.', 'ไม่มีในตัวอย่างสาธิต'], 'demo.login': ['Open the demo as the manager', 'เข้าใช้ตัวอย่างในฐานะผู้จัดการ (ทดลอง)'],
+  // in-out summary tab, event filters and drill-down
+  'sum.sub': ['Entries and exits from the gate file: thirty days, one day by the hour, or one day by soi. Click any number or bar to see its rows.', 'รถเข้าออกจากไฟล์ประตู: สามสิบวัน รายชั่วโมงของวันเดียว หรือรายซอยของวันเดียว คลิกตัวเลขหรือแท่งเพื่อดูรายการ'],
+  'sum.v.30d': ['30 days', '30 วัน'], 'sum.v.hourly': ['By hour', 'รายชั่วโมง'], 'sum.v.soi': ['By soi', 'รายซอย'],
+  'cat.member': ['Residents', 'ลูกบ้าน'], 'cat.guest': ['Visitors', 'ผู้มาติดต่อ'], 'cat.delivery': ['Deliveries', 'รถส่งของ'], 'cat.service': ['Service vehicles', 'รถบริการ'], 'cat.unknown': ['Unknown plates', 'ไม่รู้จัก'],
+  'sum.day': ['Day', 'วันที่'], 'sum.entries': ['Entries', 'รถเข้า'], 'sum.exits': ['Exits', 'รถออก'], 'sum.total': ['Total in', 'รวมเข้า'], 'sum.over': ['Houses over quota', 'บ้านที่รถเกินสิทธิ์'], 'sum.nodata': ['no file', 'ไม่มีไฟล์'],
+  'sum.range': ['{a} to {b}', '{a} ถึง {b}'], 'sum.soi.none': ['No entries on this day.', 'ไม่มีรถเข้าในวันนี้'],
+  'ev.from': ['From', 'ตั้งแต่'], 'ev.to': ['To', 'ถึง'], 'ev.soi': ['Soi', 'ซอย'], 'ev.allsoi': ['All sois', 'ทุกซอย'], 'ev.clear': ['Clear filters', 'ล้างตัวกรอง'],
+  'ev.alldays': ['all days', 'ทุกวัน'], 'ev.allcats': ['all types', 'ทุกประเภท'], 'ev.hourf': ['{h}:00–{h}:59', '{h}:00–{h}:59'], 'ev.showing': ['Showing: {s}', 'กำลังแสดง: {s}'], 'ev.search2': ['plate or house "{q}"', 'ทะเบียนหรือบ้าน "{q}"'],
   // day picker
   'dp.prev': ['Previous day', 'วันก่อนหน้า'], 'dp.next': ['Next day', 'วันถัดไป'], 'dp.none': ['Choose a day', 'เลือกวันที่'], 'dp.clear': ['Clear', 'ล้าง'],
   // office-only mode and first-run village name
@@ -2010,15 +2042,16 @@ function enterService(id, force) {
 }
 
 </script><script>
-/* ================= gate day, day counts and import rows: one copy of the logic for server/main.js and the demo shim =================
-   The server keeps SQL persistence and passes small callbacks (hasNatKey, store, seenBefore); the single-file demo passes
-   array-backed ones. Everything here runs on the engine globals (S, D, applyEvent, pk, passCode, pad, MIN, DAY). */
+/* ================= gate day, day counts, summaries and import rows: one copy of the logic for server/main.js and the demo shim =================
+   The server keeps SQL persistence and passes small callbacks (hasNatKey, store, seenBefore, exitAfter); the single-file
+   demo passes array-backed ones. Everything here runs on the engine globals (S, D, applyEvent, pk, passCode, pad, MIN, DAY). */
 function hmMs(s) { const m = /^(\d{2}):(\d{2})$/.exec(String(s || '')); return m ? (+m[1] * 60 + +m[2]) * MIN : 0; }
 function dayIso(t) { const d = new Date(t); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 /* the gate "day" starts at settings.gateDayStart (HH:MM); 00:00 means a calendar day */
 function gateDayOf(t, settings) { return dayIso(t - hmMs(settings.gateDayStart)); }
 function dayRangeOf(day, settings) { const [y, m, d] = String(day).split('-').map(Number); const s = new Date(y, m - 1, d).getTime() + hmMs(settings.gateDayStart); return [s, s + DAY]; }
 function isoShiftDay(day, n) { const [y, m, d] = String(day).split('-').map(Number); return dayIso(new Date(y, m - 1, d + n, 12).getTime()); }
+function isoDay(s) { return /^\d{4}-\d{2}-\d{2}$/.test(String(s || '')); }   // a function, so the server can call ctx.isoDay
 /* 'day' shift between shiftStart and shiftEnd (wrapping past midnight when start > end), 'night' otherwise */
 function shiftOf(t, settings) {
   const d = new Date(t), mm = d.getHours() * 60 + d.getMinutes(), a = hmMs(settings.shiftStart) / MIN, b = hmMs(settings.shiftEnd) / MIN;
@@ -2027,22 +2060,61 @@ function shiftOf(t, settings) {
 /* the natural key of a gate-log row: the same plate, time and direction imported twice is one event */
 function natKey(e) { return `${pk(e.plate)}|${e.t}|${e.dir}`; }
 function passDeadline(p, T) { return (p.entryAt ?? T) + (p.limitMin ? p.limitMin * MIN : ((p.limitH || 0) + (p.extendedH || 0)) * H); }
+/* category of a gate row: residents are registered cars; anything registered to nobody and without a pass is "unknown" */
+const EVENT_CATS = ['member', 'guest', 'delivery', 'service', 'unknown'];
+function catOf(x, isKnown) {
+  if (x.type === 'guest' || x.type === 'delivery' || x.type === 'service') return x.type;
+  return x.plate && isKnown(pk(x.plate)) ? 'member' : 'unknown';
+}
 /* One day's counts for the day review page. q = { evs: events in the day's range (sorted), visits: passes with entryAt in
-   range, over: houses over quota at the end of the day, isKnown(plateKey), seenBefore(plateKey) }. */
+   range, over: houses over quota at the end of the day (null when there is no end-of-day snapshot), isKnown(plateKey),
+   seenBefore(plateKey), exitAfter(plateKey, t) }. */
 function dayMetricsFrom(q, settings, day, withLists) {
-  const [, e] = dayRangeOf(day, settings), T = Math.min(e - 1, Date.now());
+  const [, e] = dayRangeOf(day, settings), T = Math.min(e - 1, Date.now()), nowT = Date.now();
   const ins = q.evs.filter(x => x.dir === 'in'), outs = q.evs.filter(x => x.dir === 'out');
   const unknownMap = new Map();
-  for (const x of ins) { if (!x.plate) continue; const k = pk(x.plate); if (q.isKnown(k) || x.pass) continue; const u = unknownMap.get(k) || { key: k, plate: x.plate, prov: x.prov || '', home: x.home || '', n: 0, t: x.t }; u.n++; unknownMap.set(k, u); }
+  for (const x of ins) { if (!x.plate) continue; const k = pk(x.plate); if (catOf(x, q.isKnown) !== 'unknown') continue; const u = unknownMap.get(k) || { key: k, plate: x.plate, prov: x.prov || '', home: x.home || '', n: 0, t: x.t }; u.n++; unknownMap.set(k, u); }
   const unknown = [...unknownMap.values()].map(u => ({ ...u, repeat: !!q.seenBefore(u.key) }));
-  const nonMember = ins.filter(x => x.type !== 'member').map(x => ({ plate: x.plate || '', prov: x.prov || '', home: x.home || '', type: x.type, t: x.t, shift: shiftOf(x.t, settings) }));
+  const nonMember = ins.filter(x => catOf(x, q.isKnown) !== 'member').map(x => ({ plate: x.plate || '', prov: x.prov || '', home: x.home || '', type: x.type, cat: catOf(x, q.isKnown), t: x.t, shift: shiftOf(x.t, settings) }));
   const shifts = { day: nonMember.filter(x => x.shift === 'day').length, night: nonMember.filter(x => x.shift === 'night').length };
+  /* no exit record: non-residents (visitors, deliveries, service, unknown plates) whose last movement in the day is an
+     entry; residents only when that entry is older than 24 h and no exit has followed since (parked overnight = fine) */
   const lastDir = new Map(); for (const x of q.evs) if (x.plate && (x.dir === 'in' || x.dir === 'out')) lastDir.set(pk(x.plate), x);
-  const noExit = [...lastDir.values()].filter(x => x.dir === 'in').map(x => ({ plate: x.plate, prov: x.prov || '', home: x.home || '', type: x.type, t: x.t }));
-  const overs = q.visits.map(p => ({ plate: p.plate || '', name: p.name || '', home: p.home || '', kind: p.kind || 'guest', over: Math.min(p.exitAt ?? T, T) - passDeadline(p, T) })).filter(x => x.over > 0);
-  const over = q.over || [];
-  const m = { entries: ins.length, exits: outs.length, unknown: unknown.length, unknownNew: unknown.filter(u => !u.repeat).length, nonMember: nonMember.length, overHomes: over.length, noExit: noExit.length, overstay: overs.length, shifts };
-  return withLists ? { ...m, lists: { unknown, nonMember, noExit, overs, over } } : m;
+  const noExit = [];
+  for (const [k, x] of lastDir) {
+    if (x.dir !== 'in') continue;
+    const cat = catOf(x, q.isKnown);
+    if (cat !== 'member') noExit.push({ plate: x.plate, prov: x.prov || '', home: x.home || '', type: x.type, cat, t: x.t });
+    else if (nowT - x.t > DAY && !q.exitAfter(k, x.t)) noExit.push({ plate: x.plate, prov: x.prov || '', home: x.home || '', type: x.type, cat, t: x.t, stale: true });
+  }
+  /* visitors out late or with no exit record at all */
+  const overs = q.visits.map(p => { const dl = passDeadline(p, T), late = p.exitAt ? p.exitAt - dl : T - dl; return { plate: p.plate || '', name: p.name || '', home: p.home || '', kind: p.kind || 'guest', over: Math.max(0, late), noexit: !p.exitAt }; }).filter(x => x.noexit || x.over > 0);
+  const over = Array.isArray(q.over) ? q.over : null;
+  const m = { hasData: q.evs.length > 0, entries: ins.length, exits: outs.length, unknown: unknown.length, unknownNew: unknown.filter(u => !u.repeat).length, nonMember: nonMember.length, overHomes: over ? over.length : null, noExit: noExit.length, overstay: overs.length, shifts };
+  return withLists ? { ...m, lists: { unknown, nonMember, noExit, overs, over: over || [] } } : m;
+}
+/* One day's in/out summary for the summary tab: entries by category, exits, entries per soi. areaOf(home) -> soi name or ''. */
+function daySummaryFrom(evs, isKnown, areaOf) {
+  const cats = { member: 0, guest: 0, delivery: 0, service: 0, unknown: 0 }, soi = {}; let out = 0;
+  for (const x of evs) {
+    if (x.dir === 'out') { out++; continue; }
+    if (x.dir !== 'in') continue;
+    cats[catOf(x, isKnown)]++;
+    const a = areaOf(x.home) || ''; if (!soi[a]) soi[a] = { in: 0, over: 0 }; soi[a].in++;
+  }
+  return { hasData: evs.length > 0, cats, in: Object.values(cats).reduce((a, b) => a + b, 0), out, soi };
+}
+/* Filters on gate rows shared by the events page (server after SQL, demo shim in memory): f = { cats: [..], soi, hour, dir, q } */
+function filterEvents(rows, f, isKnown, areaOf) {
+  const cats = Array.isArray(f.cats) && f.cats.length ? f.cats.filter(c => EVENT_CATS.includes(c)) : null, qk = f.q ? pk(f.q) : '', hour = f.hour === undefined || f.hour === null || f.hour === '' ? null : +f.hour;
+  return rows.filter(x => {
+    if (f.dir && f.dir !== 'all' && x.dir !== f.dir) return false;
+    if (cats && !cats.includes(catOf(x, isKnown))) return false;
+    if (f.soi && f.soi !== 'all' && (areaOf(x.home) || '') !== f.soi) return false;
+    if (hour !== null && new Date(x.t).getHours() !== hour) return false;
+    if (f.q && !((qk && pk(x.plate).includes(qk)) || x.home === f.q)) return false;
+    return true;
+  });
 }
 /* Import rows into the live state. list = parsed rows sorted by time (from checkImport). env = { lastT: {plateKey: latest known
    time}, lastDir: {plateKey: 'in'|'out'}, curPass: {plateKey: pass code}, batch, userId, hasNatKey(nk), store(ev) }.
@@ -4858,7 +4930,7 @@ var qrcode = function() {
 /* Village Gate v2 client core. The server is the authority; the browser keeps a copy of the
    state so screens are instant, and the gate phone can keep recording when the network drops. */
 const $ = (s, r = document) => r.querySelector(s);
-const UI = { atab: 'day', day: null, navOpen: {}, homePage: 1, vehPage: 1, homeQ: '', homeF: 'all', zone: 'all', vehQ: '', vehF: 'all', evQ: '', evType: 'all', evDir: 'all', evDay: '',
+const UI = { atab: 'day', day: null, navOpen: {}, homePage: 1, vehPage: 1, homeQ: '', homeF: 'all', zone: 'all', vehQ: '', vehF: 'all', evQ: '', evType: 'all', evDir: 'all', evDay: '', evFrom: '', evTo: '', evCats: [], evSoi: 'all', evHour: '', sumView: '30d',
   gq: '', gsel: null, imp: null, impResult: null, impText: '', impFile: null, repDay: null, setupPrev: null, setupDone: null, photo: null, revealed: {}, dlRev: -1, loginStep: 'secret', pendingDevice: null, totpSetup: null };
 let ME = null, SESSION = null, VERSION = 0, MODAL = null, ONLINE = true, HTTPS = false, DEMO = false, ticks = 0, STAFF = null, BACKUPS = null, EVQ = null, REPORT = null, BATCHES = null, BOOTED = false;
 const ACT = {}, INP = {}, CHG = {};
@@ -5300,15 +5372,16 @@ async function boot() {
 </script><script>
 'use strict';
 /* Village Gate v2: admin screens. Charts, map, audit details and the link form come from the tested prototype. */
-function barChart(ins, outs, labels, aria) {
+function barChart(ins, outs, labels, aria, act) {
   const n = ins.length, top = Math.max(10, Math.ceil(Math.max(...ins, ...outs) / 10) * 10);
   const W = 640, HH = 200, L = 34, R = 8, T = 12, B = 28, pw = W - L - R, ph = HH - T - B, bw = pw / n, w = Math.min(14, bw / 2 - 2);
   let s = `<svg class="chart" viewBox="0 0 ${W} ${HH}" role="img" aria-label="${esc(aria)}">`;
   for (const f of [0, .5, 1]) { const y = T + ph * (1 - f); s += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y}" y2="${y}"/><text class="ax" x="${L - 6}" y="${y + 4}" text-anchor="end">${Math.round(top * f)}</text>`; }
   for (let i = 0; i < n; i++) {
     const x = L + i * bw, hi = ins[i] / top * ph, ho = outs[i] / top * ph;
-    s += `<rect class="b-in" x="${(x + bw / 2 - w - 1).toFixed(1)}" y="${(T + ph - hi).toFixed(1)}" width="${w.toFixed(1)}" height="${hi.toFixed(1)}" rx="2"><title>${t('chart.in', { h: labels[i], n: ins[i] })}</title></rect>`;
-    s += `<rect class="b-out" x="${(x + bw / 2 + 1).toFixed(1)}" y="${(T + ph - ho).toFixed(1)}" width="${w.toFixed(1)}" height="${ho.toFixed(1)}" rx="2"><title>${t('chart.out', { h: labels[i], n: outs[i] })}</title></rect>`;
+    const drill = act ? ` data-act="${act}" data-v="${i}" style="cursor:pointer"` : '';
+    s += `<rect class="b-in"${drill} x="${(x + bw / 2 - w - 1).toFixed(1)}" y="${(T + ph - hi).toFixed(1)}" width="${w.toFixed(1)}" height="${hi.toFixed(1)}" rx="2"><title>${t('chart.in', { h: labels[i], n: ins[i] })}</title></rect>`;
+    s += `<rect class="b-out"${drill} x="${(x + bw / 2 + 1).toFixed(1)}" y="${(T + ph - ho).toFixed(1)}" width="${w.toFixed(1)}" height="${ho.toFixed(1)}" rx="2"><title>${t('chart.out', { h: labels[i], n: outs[i] })}</title></rect>`;
     if (n <= 12 || i % 2 === 0) s += `<text class="ax" x="${(x + bw / 2).toFixed(1)}" y="${HH - 8}" text-anchor="middle">${labels[i]}</text>`;
   }
   return s + '</svg>';
@@ -5321,7 +5394,7 @@ function trafficChart() {
 }
 const tileNum = id => { const s = String(id), i = s.lastIndexOf('/'); return (i >= 0 ? s.slice(i + 1) : s).slice(-4); };
 function villageMap() {
-  return `<div class="vmap">${D.areas.map(a => `<div class="zone ${a.homes.length > 70 ? 'wide' : ''}"><h3>${esc(areaName(a.name))} <span class="muted">${t('map.count', { n: a.homes.length })}</span></h3><div class="tiles">${a.homes.map(h => {
+  return `<div class="vmap">${D.areas.map(a => `<div class="zone ${a.homes.length > 70 ? 'wide' : ''}"><h3>${esc(areaName(a.name))} <button class="numlink" data-act="soi-drill" data-v="${esc(a.name)}" title="${esc(t('tab.events'))}">${t('map.count', { n: a.homes.length })}</button></h3><div class="tiles">${a.homes.map(h => {
     const s = homeStat(h.id); const lbl = t('map.tile', { id: h.id, at: s.at, q: s.q, temp: s.temp });
     return `<button class="tile s-${s.status}" data-act="home" data-v="${esc(h.id)}" title="${esc(lbl)}" aria-label="${esc(lbl)}"><span>${esc(tileNum(h.id))}</span></button>`;
   }).join('')}</div></div>`).join('')}</div>
@@ -5373,8 +5446,9 @@ function vAdmin() {
   const btn = k => `<button class="${UI.atab === k ? 'on' : ''}" data-act="atab" data-v="${k}"${UI.atab === k ? ' aria-current="page"' : ''}>${t('tab.' + k)}${badge[k] ? `<span class="badge${['security', 'overview', 'staff'].includes(k) ? ' bad' : ''}">${badge[k]}</span>` : ''}</button>`;
   const groups = navGroups().map(g => {
     const open = !g.fold || !!UI.navOpen[g.k] || g.tabs.includes(UI.atab);
-    const headEl = g.fold ? `<button class="navh" data-act="nav-toggle" data-v="${g.k}" aria-expanded="${open}">${t('nav.' + g.k)}<span class="caret">${open ? '▾' : '▸'}</span></button>` : `<div class="navh">${t('nav.' + g.k)}</div>`;
-    return `<div class="navg${open ? ' open' : ''}" data-g="${g.k}">${headEl}<div class="navitems" ${open ? '' : 'hidden'}>${g.tabs.map(btn).join('')}</div></div>`;
+    const chev = '<span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+    const headEl = g.fold ? `<button class="navh" data-act="nav-toggle" data-v="${g.k}" aria-expanded="${open}">${t('nav.' + g.k)}${chev}</button>` : `<div class="navh">${t('nav.' + g.k)}</div>`;
+    return `<div class="navg${open ? ' open' : ''}${g.fold ? ' fold' : ''}" data-g="${g.k}">${headEl}<div class="navitems" ${open ? '' : 'hidden'}>${g.tabs.map(btn).join('')}</div></div>`;
   }).join('');
   UI.narrow = isNarrow();
   return `<div class="admin${UI.narrow ? ' narrow' : ''}"><button class="menubtn" data-act="menu-toggle" aria-expanded="${!!UI.menuOpen}" aria-controls="sidenav">☰ ${t('tab.' + UI.atab)}</button><nav class="side${UI.menuOpen ? ' open' : ''}" id="sidenav" aria-label="${esc(t('nav.admin'))}">${groups}
@@ -5384,7 +5458,7 @@ ACT['nav-toggle'] = v => { UI.navOpen[v] = !UI.navOpen[v]; render(); };
 ACT['menu-toggle'] = () => { UI.menuOpen = !UI.menuOpen; render(); };
 /* a table cell that knows its column name, so the phone layout can show it as a label (td::before) */
 const td = (th, inner, cls = '') => `<td${cls ? ` class="${cls}"` : ''} data-th="${esc(th)}">${inner}</td>`;
-const TABLOAD = { day: () => loadDay(UI.day), events: () => loadEvents(true), reports: () => loadReport(), staff: () => loadStaff(), settings: () => loadBackups() };
+const TABLOAD = { day: () => loadDay(UI.day), events: () => loadEvents(true), reports: () => { loadReport(); loadSummary(); }, staff: () => loadStaff(), settings: () => loadBackups() };
 ACT.atab = v => { if (!ATABS_OF().includes(v)) return; UI.atab = v; UI.menuOpen = false; if (MODAL) closeModal(); render(); window.scrollTo(0, 0); if (TABLOAD[v]) TABLOAD[v](); };
 AVIEWS.map = () => `${head('map', t('map.sub'))}<div class="panel">${villageMap()}</div>`;
 /* the gate screen, tried from the office: the same code the guard phone runs, with a banner. Entries are real. */
@@ -5622,7 +5696,36 @@ ACT['svc-del'] = v => confirmModal(t('sv.del.t'), t('sv.del.p'), 'svc-del-go', v
 ACT['svc-del-go'] = async v => { closeModal(); await act('svcDel', { id: +v }); };
 
 /* ----- gate log (from the database) ----- */
-function evParams(before) { const p = new URLSearchParams(); if (UI.evQ) p.set('q', UI.evQ); if (UI.evType !== 'all') p.set('type', UI.evType); if (UI.evDir !== 'all') p.set('dir', UI.evDir); if (UI.evDay) p.set('day', UI.evDay); if (before) p.set('before', before); return p.toString(); }
+/* ----- gate log: one set of filters (day range, category, direction, soi, search, hour) shared with every drill-down ----- */
+const EV_CATS = ['member', 'guest', 'delivery', 'service', 'unknown'];
+function evParams(before) {
+  const p = new URLSearchParams();
+  if (UI.evQ) p.set('q', UI.evQ);
+  if (UI.evType !== 'all') p.set('type', UI.evType);
+  if (UI.evDir !== 'all') p.set('dir', UI.evDir);
+  if (UI.evFrom || UI.evTo) { p.set('from', UI.evFrom || UI.evTo); p.set('to', UI.evTo || UI.evFrom); } else if (UI.evDay) p.set('day', UI.evDay);
+  if (UI.evCats.length) p.set('cat', UI.evCats.join(','));
+  if (UI.evSoi !== 'all') p.set('soi', UI.evSoi);
+  if (UI.evHour !== '' && UI.evHour !== undefined && UI.evHour !== null) p.set('hour', String(UI.evHour));
+  if (before) p.set('before', before);
+  return p.toString();
+}
+/* the active filters, written as one sentence above the table */
+function evSentence() {
+  const a = UI.evFrom || UI.evTo || UI.evDay, b = UI.evTo || UI.evFrom || UI.evDay, parts = [];
+  parts.push(!a ? t('ev.alldays') : a === b ? fmtDay(a) : t('sum.range', { a: fmtDay(a), b: fmtDay(b) }));
+  if (UI.evHour !== '' && UI.evHour !== undefined && UI.evHour !== null) parts.push(t('ev.hourf', { h: pad(UI.evHour) }));
+  parts.push(UI.evCats.length ? UI.evCats.map(c => t('cat.' + c)).join(' + ') : t('ev.allcats'));
+  parts.push(UI.evDir === 'all' ? t('ev.alldirs') : t('dir.' + UI.evDir));
+  if (UI.evSoi !== 'all') parts.push(esc(areaName(UI.evSoi)));
+  if (UI.evQ) parts.push(t('ev.search2', { q: esc(UI.evQ) }));
+  return parts.join(', ');
+}
+/* every number in the app lands here: set the filters, open the gate log, load */
+function gotoEvents(f) {
+  UI.evFrom = f.from || ''; UI.evTo = f.to || f.from || ''; UI.evDay = ''; UI.evCats = Array.isArray(f.cats) ? f.cats.slice() : []; UI.evDir = f.dir || 'all'; UI.evSoi = f.soi || 'all'; UI.evQ = f.q || ''; UI.evType = 'all'; UI.evHour = f.hour === undefined || f.hour === null ? '' : f.hour;
+  UI.atab = 'events'; UI.menuOpen = false; EVQ = null; if (MODAL) closeModal(); render(); window.scrollTo(0, 0); loadEvents(true);
+}
 /* "late": the server received the event more than 15 minutes after it happened (an offline entry sent later, or a phone with a wrong clock) */
 const isLate = e => e.source !== 'import' && e.recvAt && e.recvAt - e.t > 15 * MIN;
 async function loadEvents(reset) {
@@ -5631,21 +5734,37 @@ async function loadEvents(reset) {
   if (UI.atab === 'events') render();
 }
 AVIEWS.events = () => `${head('events', t('ev.sub', { n: S.events.length }))}
-  <div class="filters"><input type="search" id="evQ" placeholder="${esc(t('ev.search'))}" value="${esc(UI.evQ)}" data-enter="ev-go" aria-label="${esc(t('ev.search'))}">
-  <select id="evType" aria-label="${esc(t('th.type'))}">${['all', 'member', 'guest', 'delivery', 'service'].map(k => opt(k, k === 'all' ? t('ev.alltypes') : t('kind.' + k), UI.evType === k)).join('')}</select>
-  <select id="evDir" aria-label="${esc(t('th.dir'))}">${['all', 'in', 'out', 'move'].map(k => opt(k, k === 'all' ? t('ev.alldirs') : t('dir.' + k), UI.evDir === k)).join('')}</select>
-  ${dayPicker('evDay', UI.evDay, { max: today(), clear: true })}<button class="btn ink" data-act="ev-go">${t('ev.go')}</button><button class="btn ghost" data-act="ev-csv">${t('btn.export')}</button></div>
+  <div class="evfilters">
+    <div class="row"><label>${t('ev.from')} ${dayPicker('evFrom', UI.evFrom, { max: today(), clear: true })}</label><label>${t('ev.to')} ${dayPicker('evTo', UI.evTo, { max: today(), clear: true })}</label>
+      <select id="evDir" data-chg="evDir" aria-label="${esc(t('th.dir'))}">${['all', 'in', 'out', 'move'].map(k => opt(k, k === 'all' ? t('ev.alldirs') : t('dir.' + k), UI.evDir === k)).join('')}</select>
+      <select id="evSoi" data-chg="evSoi" aria-label="${esc(t('ev.soi'))}">${opt('all', t('ev.allsoi'), UI.evSoi === 'all')}${D.areas.map(a => opt(a.name, areaName(a.name), UI.evSoi === a.name)).join('')}</select></div>
+    <div class="row"><div class="chips" role="group" aria-label="${esc(t('th.type'))}">${EV_CATS.map(c => `<button type="button" data-act="ev-cat" data-v="${c}" aria-pressed="${UI.evCats.includes(c)}">${t('cat.' + c)}</button>`).join('')}</div>
+      <input type="search" id="evQ" placeholder="${esc(t('ev.search'))}" value="${esc(UI.evQ)}" data-enter="ev-go" aria-label="${esc(t('ev.search'))}"><button class="btn ink" data-act="ev-go">${t('ev.go')}</button><button class="btn ghost" data-act="ev-clear">${t('ev.clear')}</button><button class="btn ghost" data-act="ev-csv">${t('btn.export')}</button></div>
+  </div>
+  <p class="evsentence">${t('ev.showing', { s: evSentence() })}</p>
   <div class="panel flush">${EVQ ? `<div class="tbl-wrap cards"><table><thead><tr><th>${t('th.time')}</th><th>${t('th.dir')}</th><th>${t('th.plate')}</th><th>${t('th.house')}</th><th>${t('th.type')}</th><th>${t('th.parking')}</th><th>${t('th.by')}</th></tr></thead><tbody>
   ${EVQ.rows.map(e => `<tr>${td(t('th.time'), `${fmtDT(e.t)}${isLate(e) ? `<br>${chip(t('ev.late', { t: fmtT(e.recvAt) }), 'warn')}` : ''}`, 'nowrap')}${td(t('th.dir'), chip(t('dir.' + e.dir), 'd-' + e.dir))}${td(t('th.plate'), e.plate ? plateBtn(e.plate, e.prov) : `<span class="muted">${t('ev.removed')}</span>`)}${td(t('th.house'), e.home ? homeLink(e.home) : '—')}${td(t('th.type'), t('kind.' + e.type))}${td(t('th.parking'), `${e.loc ? esc(locText(e)) : e.applied === false ? `<span class="muted sm">${t('ev.history')}</span>` : ''}${e.dir === 'out' && e.dur ? `<br><span class="muted sm">${t('vhh.stayed', { d: fmtDur(e.dur) })}</span>` : ''}`)}${td(t('th.by'), `${esc(dt(e.by || ''))}${e.source === 'import' ? `<br><span class="muted sm">${t('vhh.imported')}</span>` : e.source === 'offline' ? `<br><span class="muted sm">${t('vhh.offline')}</span>` : ''}`)}</tr>`).join('') || `<tr><td colspan="7" class="empty">${t('ev.none')}</td></tr>`}
   </tbody></table></div>${EVQ.more ? `<div class="more"><button class="btn ghost" data-act="ev-more">${t('ev.more')}</button></div>` : ''}` : `<p class="muted pad">${t('loading')}</p>`}</div>`;
-ACT['ev-go'] = () => { UI.evQ = val('evQ'); UI.evType = val('evType') || 'all'; UI.evDir = val('evDir') || 'all'; UI.evDay = val('evDay'); EVQ = null; render(); loadEvents(true); };
-CHG.evDay = v => { UI.evDay = v; };
+ACT['ev-go'] = () => { if ($('#evQ')) UI.evQ = val('evQ'); if ($('#evFrom')) { UI.evFrom = val('evFrom'); UI.evTo = val('evTo'); UI.evDay = ''; } EVQ = null; render(); loadEvents(true); };
+CHG.evFrom = v => { UI.evFrom = v; }; CHG.evTo = v => { UI.evTo = v; }; CHG.evDay = v => { UI.evDay = v; };
+CHG.evDir = v => { UI.evDir = v; ACT['ev-go'](); };
+CHG.evSoi = v => { UI.evSoi = v; ACT['ev-go'](); };
+ACT['ev-cat'] = v => { UI.evCats = UI.evCats.includes(v) ? UI.evCats.filter(x => x !== v) : [...UI.evCats, v]; ACT['ev-go'](); };
+ACT['ev-clear'] = () => gotoEvents({});
 ACT['ev-more'] = () => loadEvents(false);
 ACT['ev-csv'] = () => download('/api/export/events.csv?' + evParams());
 
-/* ----- reports ----- */
+/* ----- in-out summary: 30 days, one day by the hour, one day by soi. Every number and bar drills into the gate log. ----- */
 const REPORT_KEYS = ['setup', 'settings', 'block', 'unblock', 'approve', 'reject', 'rejectdup', 'phone', 'link', 'unreg', 'homeedit', 'homeadd', 'homedel', 'import', 'importundo', 'export', 'quota', 'correct', 'deny', 'vehadd', 'vehedit', 'svcadd', 'svcedit', 'svcdel', 'svcforce', 'useradd', 'userreset', 'useroff', 'useron', 'devok', 'devno', 'devrevoke', 'backup', 'pwchange', 'totpon', 'totpoff', 'purge'];
 async function loadReport() { const day = UI.repDay || today(); try { const j = await api('GET', '/api/report?day=' + day); if (j.evs) REPORT = j; } catch (e) { return; } if (UI.atab === 'reports') render(); }
+let SUMMARY = null;
+async function loadSummary(day) {
+  const to = day || UI.repDay || today(), from = isoShiftDay(to, -29);
+  UI.sumLoading = true;
+  try { const j = await api('GET', `/api/summary?from=${from}&to=${to}`); if (j.days) SUMMARY = j; } catch (e) { /* offline */ }
+  UI.sumLoading = false;
+  if (UI.atab === 'reports') render();
+}
 function buildReport(d) {
   const { s, e, T, evs } = d, hourly = Array.from({ length: 24 }, () => ({ in: 0, out: 0 }));
   for (const x of evs) { const h = new Date(x.t).getHours(); if (x.dir === 'in') hourly[h].in++; else if (x.dir === 'out') hourly[h].out++; }
@@ -5661,25 +5780,66 @@ function buildReport(d) {
     invited: visits.filter(p => p.createdBy === 'member' || p.createdBy === 'admin').length, deliveries: visits.filter(p => p.kind === 'delivery').length, services: visits.filter(p => p.kind === 'service').length,
     overs, avgStay, incidents, snap: d.snap || { members: 0, guests: 0, peak: 0, over: [], unauthorized: 0, missing: true }, actions: d.audit.filter(a => REPORT_KEYS.includes(a.a)), partial: d.partial, note: d.note || '' };
 }
-AVIEWS.reports = () => {
-  const day = UI.repDay || today(), r = REPORT && REPORT.day === day ? buildReport(REPORT) : null;
-  return `${head('reports', t('rp.sub'))}<div class="filters">${dayPicker('repDay', day, { max: today() })}${day !== today() ? `<button class="btn ghost" data-act="rep-day" data-v="${today()}">${t('rp.today')}</button>` : ''}</div>
-  ${r ? reportView(r) : `<p class="muted">${t('loading')}</p>`}`;
-};
-function reportView(r) {
+function stackChart(days) {
+  const W = 640, HH = 220, L = 34, R = 8, T = 12, B = 30, pw = W - L - R, ph = HH - T - B, n = Math.max(1, days.length), bw = pw / n, w = Math.max(3, bw * .66);
+  const top = Math.max(10, Math.ceil(Math.max(0, ...days.map(d => Math.max(d.in || 0, d.out || 0))) / 10) * 10);
+  let s = `<svg class="stack" viewBox="0 0 ${W} ${HH}" role="img" aria-label="${esc(t('sum.v.30d'))}">`;
+  for (const f of [0, .5, 1]) { const y = T + ph * (1 - f); s += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y}" y2="${y}"/><text class="ax" x="${L - 6}" y="${y + 4}" text-anchor="end">${Math.round(top * f)}</text>`; }
+  const pts = [];
+  days.forEach((d, i) => {
+    const x = L + i * bw + (bw - w) / 2; let y = T + ph;
+    if (n <= 16 || i % 5 === 0 || i === n - 1) s += `<text class="ax" x="${(x + w / 2).toFixed(1)}" y="${HH - 10}" text-anchor="middle">${d.day.slice(8)}</text>`;
+    if (!d.hasData) { s += `<rect class="nodata" x="${x.toFixed(1)}" y="${(T + ph - 6).toFixed(1)}" width="${w.toFixed(1)}" height="6" rx="1"><title>${fmtDay(d.day)}: ${esc(t('sum.nodata'))}</title></rect>`; return; }
+    for (const c of EV_CATS) { const v = d.cats[c] || 0; if (!v) continue; const h = v / top * ph; y -= h; s += `<rect class="c-${c}" data-act="sum-drill" data-v="${d.day}|${c}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}"><title>${fmtDay(d.day)} ${t('cat.' + c)}: ${v}</title></rect>`; }
+    pts.push([x + w / 2, T + ph - (d.out || 0) / top * ph]);
+  });
+  if (pts.length) s += `<polyline class="outs" points="${pts.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ')}"/>` + pts.map(p => `<circle class="outdot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2"/>`).join('');
+  return s + '</svg>';
+}
+const sumLoading = day => { if (!UI.sumLoading) loadSummary(day); return `<p class="muted">${t('loading')}</p>`; };
+function summary30(day) {
+  const sm = SUMMARY && SUMMARY.to === day ? SUMMARY : null; if (!sm) return sumLoading(day);
+  const has = d => d.hasData, tot = c => sm.days.reduce((a, d) => a + (has(d) ? d.cats[c] || 0 : 0), 0);
+  const link = (d, c, v) => `<button class="numlink" data-act="sum-drill" data-v="${d}|${c}">${v}</button>`;
+  return `<div class="panel"><h2>${t('sum.range', { a: fmtDay(sm.from), b: fmtDay(sm.to) })}</h2>${stackChart(sm.days)}<p class="legend">${EV_CATS.map(c => `<span class="sw c-${c}"></span>${t('cat.' + c)}`).join(' ')} <span class="sw c-out"></span>${t('sum.exits')}</p></div>
+  <div class="panel flush"><div class="tbl-wrap sticky cards"><table><thead><tr><th>${t('sum.day')}</th>${EV_CATS.map(c => `<th>${t('cat.' + c)}</th>`).join('')}<th>${t('sum.total')}</th><th>${t('sum.exits')}</th></tr></thead><tbody>
+  ${sm.days.slice().reverse().map(d => has(d) ? `<tr>${td(t('sum.day'), link(d.day, '', fmtDay(d.day)))}${EV_CATS.map(c => td(t('cat.' + c), link(d.day, c, d.cats[c] || 0))).join('')}${td(t('sum.total'), link(d.day, '', d.in))}${td(t('sum.exits'), link(d.day, 'out', d.out))}</tr>` : `<tr>${td(t('sum.day'), fmtDay(d.day))}<td colspan="7" class="muted sm">${t('sum.nodata')}</td></tr>`).join('')}
+  <tr><td><strong>${t('sum.total')}</strong></td>${EV_CATS.map(c => `<td><strong>${tot(c)}</strong></td>`).join('')}<td><strong>${sm.days.reduce((a, d) => a + (has(d) ? d.in : 0), 0)}</strong></td><td><strong>${sm.days.reduce((a, d) => a + (has(d) ? d.out : 0), 0)}</strong></td></tr>
+  </tbody></table></div></div>`;
+}
+function summarySoi(day) {
+  const sm = SUMMARY && SUMMARY.to === day ? SUMMARY : null; if (!sm) return sumLoading(day);
+  const d = sm.days.find(x => x.day === day); if (!d || !d.hasData) return `<div class="panel"><p class="empty">${t('sum.soi.none')}</p></div>`;
+  const names = [...new Set([...D.areas.map(a => a.name), ...Object.keys(d.soi)])];
+  return `<div class="panel flush"><div class="tbl-wrap sticky cards"><table><thead><tr><th>${esc(areaLabel())}</th><th>${t('sum.entries')}</th><th>${t('sum.over')}</th></tr></thead><tbody>
+  ${names.map(nm => { const v = d.soi[nm] || { in: 0, over: 0 }; return `<tr>${td(areaLabel(), nm ? esc(areaName(nm)) : `<span class="muted">${t('none')}</span>`)}${td(t('sum.entries'), `<button class="numlink" data-act="soi-drill" data-v="${day}|${esc(nm)}">${v.in}</button>`)}${td(t('sum.over'), d.overHomes === null ? `<span class="muted">— ${t('day.nosnap')}</span>` : String(v.over))}</tr>`; }).join('')}
+  <tr><td><strong>${t('sum.total')}</strong></td><td><strong>${d.in}</strong></td><td><strong>${d.overHomes === null ? '—' : d.overHomes}</strong></td></tr>
+  </tbody></table></div></div>`;
+}
+function reportHourly(r) {
   const k = [[t('rp.m.entries'), r.entries], [t('rp.m.exits'), r.exits], [t('rp.m.unique'), r.unique], [t('rp.m.guests'), r.visits.filter(p => kindOf(p) === 'guest').length], [t('rp.m.deliv'), r.deliveries], [t('rp.m.svc'), r.services], [t('rp.m.overs'), r.overs.length], [t('rp.m.incidents'), r.incidents.length]];
   return `<p class="muted">${fmtDay(r.day)}</p>${r.partial ? `<p class="callout info">${t('rp.partial2', { t: fmtT(r.T) })}</p>` : ''}${r.snap.missing ? `<p class="callout warn">${t('rp.nosnap')}</p>` : ''}
   <div class="kpis">${k.map(([l, v]) => `<div class="kpi"><span class="kl">${l}</span><strong>${v}</strong></div>`).join('')}</div>
-  <div class="panel"><h2>${t('rp.dl')}</h2><div class="btnrow"><button class="btn ink" data-act="rep-xlsx">${t('rp.dl.xlsx')}</button><button class="btn ghost" data-act="rep-html">${t('rp.dl.html')}</button><button class="btn ghost" data-act="rep-csv">${t('rp.dl.csv')}</button></div></div>
-  <div class="grid2"><div class="panel"><h2>${t('rp.s.hourly')}</h2>${barChart(r.hourly.map(x => x.in), r.hourly.map(x => x.out), r.hourly.map((_, h) => pad(h)), t('chart.aria'))}${r.busiest.h >= 0 ? `<p class="muted">${t('rp.busy', { h: pad(r.busiest.h) + ':00', n: r.busiest.n, u: r.unique, p: r.snap.peak || 0, c: S.settings.tempCap })}</p>` : ''}</div>
+  <div class="grid2"><div class="panel"><h2>${t('rp.s.hourly')}</h2>${barChart(r.hourly.map(x => x.in), r.hourly.map(x => x.out), r.hourly.map((_, h) => pad(h)), t('chart.aria'), 'hour-drill')}${r.busiest.h >= 0 ? `<p class="muted">${t('rp.busy', { h: pad(r.busiest.h) + ':00', n: r.busiest.n, u: r.unique, p: r.snap.peak || 0, c: S.settings.tempCap })}</p>` : ''}</div>
   <div class="panel"><h2>${t('rp.inc', { n: r.incidents.length })}</h2>${r.incidents.length ? `<ul class="att">${r.incidents.slice(0, 30).map(x => `<li class="lv-${x.handled ? 'info' : 'bad'}"><span><span class="muted sm">${fmtT(x.t)}</span> ${x.plate ? plate(x.plate, '', 'sm') : ''} ${esc(x.text)}</span></li>`).join('')}</ul>` : `<p class="empty">${t('rp.none')}</p>`}</div></div>
   <div class="panel"><h2>${t('rp.ovr', { n: r.overs.length })}</h2>${r.overs.length ? `<ul class="vlist">${r.overs.map(o => `<li>${plate(o.p.plate, '', 'sm')}<span>${kindChip(o.p)} ${o.p.home ? esc(o.p.home) : esc(o.p.company || '')}</span><span class="chip bad">${t('vs.overby', { d: fmtDur(o.over) })}</span></li>`).join('')}</ul>` : `<p class="empty">${t('rp.none')}</p>`}</div>`;
 }
-CHG.repDay = v => { if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return; UI.repDay = v; REPORT = null; render(); loadReport(); };
+AVIEWS.reports = () => {
+  const day = UI.repDay || today(), r = REPORT && REPORT.day === day ? buildReport(REPORT) : null, view = UI.sumView || '30d';
+  const tools = `<div class="filters">${dayPicker('repDay', day, { max: today() })}${day !== today() ? `<button class="btn ghost" data-act="rep-day" data-v="${today()}">${t('rp.today')}</button>` : ''}<button class="btn ink" data-act="rep-xlsx" ${r ? '' : 'disabled'}>${t('rp.dl.xlsx')}</button><button class="btn ghost" data-act="rep-html" ${r ? '' : 'disabled'}>${t('rp.dl.html')}</button><button class="btn ghost" data-act="rep-csv">${t('rp.dl.csv')}</button></div>`;
+  const seg = `<div class="seg" role="group" aria-label="${esc(t('tab.reports'))}">${['30d', 'hourly', 'soi'].map(v => `<button type="button" data-act="sum-view" data-v="${v}" aria-pressed="${view === v}">${t('sum.v.' + v)}</button>`).join('')}</div>`;
+  const body = view === '30d' ? summary30(day) : view === 'soi' ? summarySoi(day) : r ? reportHourly(r) : `<p class="muted">${t('loading')}</p>`;
+  return `${head('reports', t('sum.sub'))}${tools}${seg}${body}`;
+};
+ACT['sum-view'] = v => { UI.sumView = v; render(); };
+ACT['sum-drill'] = v => { const [day, c] = v.split('|'); gotoEvents({ from: day, to: day, dir: c === 'out' ? 'out' : 'in', cats: c && c !== 'out' ? [c] : [] }); };
+ACT['hour-drill'] = v => { if (!REPORT) return; gotoEvents({ from: REPORT.day, to: REPORT.day, dir: 'all', hour: +v }); };
+ACT['soi-drill'] = v => { const i = v.indexOf('|'), day = i >= 0 ? v.slice(0, i) : (UI.day || UI.repDay || today()), soi = i >= 0 ? v.slice(i + 1) : v; gotoEvents({ from: day, to: day, dir: 'in', soi }); };
+CHG.repDay = v => { if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return; UI.repDay = v; REPORT = null; SUMMARY = null; render(); loadReport(); loadSummary(v); };
 ACT['rep-day'] = v => CHG.repDay(v);
 ACT['rep-xlsx'] = () => { if (!REPORT) return; const r = buildReport(REPORT); saveFile(`village-report-${r.day}.xlsx`, xlsxBuild(reportSheets(r))); };
 ACT['rep-html'] = () => { if (!REPORT) return; const r = buildReport(REPORT); saveFile(`village-report-${r.day}.html`, reportHTML(r)); };
-ACT['rep-csv'] = () => { if (REPORT) download('/api/export/events.csv?day=' + REPORT.day); };
+ACT['rep-csv'] = () => { const day = UI.repDay || today(); download('/api/export/events.csv?from=' + day + '&to=' + day); };
 
 /* ----- gate log import (lives on the day page; these handlers are shared with it) ----- */
 async function loadBatches() { try { const j = await api('GET', '/api/import/batches'); if (j.rows) BATCHES = j.rows; } catch (e) { /* offline */ } }
@@ -5840,7 +6000,8 @@ ACT['export-audit'] = () => download('/api/export/audit.csv');
 </script><script>
 'use strict';
 /* Village Gate v2: the day review page. It reviews ONE PAST DAY from the imported gate file, against the day before,
-   so the manager can pick today's working point and check tomorrow whether it improved. Nothing here is a live clock. */
+   so the manager can pick today's working point and check tomorrow whether it improved. Nothing here is a live clock.
+   Every number links to the gate log with the matching filters (ACT day-drill -> gotoEvents). */
 let DAYD = null;
 async function loadDay(day) {
   UI.dayLoading = true;
@@ -5850,18 +6011,23 @@ async function loadDay(day) {
   if (UI.atab === 'day') render();
 }
 CHG.day = v => { if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return; UI.day = v; UI.impResult = null; render(); loadDay(v); };
-/* the seven tiles; 1 = a rise is bad (shown red), 0 = neutral */
-const DAY_KEYS = [['entries', 0], ['exits', 0], ['unknown', 1], ['nonMember', 1], ['overHomes', 1], ['noExit', 1], ['overstay', 1]];
+/* the seven tiles; 1 = a rise is bad (shown red), 0 = neutral; the filters each tile opens in the gate log */
+const NONRES = ['guest', 'delivery', 'service', 'unknown'];
+const DAY_KEYS = [['entries', 0, { dir: 'in' }], ['exits', 0, { dir: 'out' }], ['unknown', 1, { dir: 'in', cats: ['unknown'] }], ['nonMember', 1, { dir: 'in', cats: NONRES }], ['overHomes', 1, { dir: 'in' }], ['noExit', 1, { dir: 'in', cats: NONRES }], ['overstay', 1, { dir: 'in', cats: ['guest'] }]];
 function sparkline(vals) {
-  const w = 120, h = 28, max = Math.max(1, ...vals), n = vals.length;
-  const pts = vals.map((v, i) => [(n > 1 ? i * (w - 4) / (n - 1) : w / 2) + 2, h - 3 - (v / max) * (h - 6)]);
-  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline points="${pts.map(p => p.map(x => x.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="${pts[n - 1][0].toFixed(1)}" cy="${pts[n - 1][1].toFixed(1)}" r="2.2" fill="currentColor"/></svg>`;
+  const w = 120, h = 28, pts = [], have = vals.filter(v => v !== null), max = Math.max(1, ...have), n = vals.length;
+  vals.forEach((v, i) => { if (v !== null) pts.push([(n > 1 ? i * (w - 4) / (n - 1) : w / 2) + 2, h - 3 - (v / max) * (h - 6)]); });
+  if (!pts.length) return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true"><line x1="2" y1="${h - 3}" x2="${w - 2}" y2="${h - 3}" stroke="currentColor" stroke-dasharray="2 3" opacity=".5"/></svg>`;
+  const last = pts[pts.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline points="${pts.map(p => p.map(x => x.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>${pts.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="1.6" fill="currentColor"/>`).join('')}<circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.4" fill="currentColor"/></svg>`;
 }
-function miniBars(vals, labels) { const max = Math.max(1, ...vals); return `<div class="mbars">${vals.map((v, i) => `<span title="${esc(labels[i])}: ${v}"><i style="height:${Math.max(3, Math.round(v / max * 100))}%"></i></span>`).join('')}</div>`; }
+/* a 7-day strip: days without a file show an empty dotted bar, never a zero */
+function miniBars(vals, labels) { const have = vals.filter(v => v !== null), max = Math.max(1, ...have); return `<div class="mbars">${vals.map((v, i) => v === null ? `<span class="nodata" title="${esc(labels[i])}: ${esc(t('day.nodata'))}"></span>` : `<span title="${esc(labels[i])}: ${v}"><i style="height:${Math.max(3, Math.round(v / max * 100))}%"></i></span>`).join('')}</div>`; }
 function deltaChip(d, bad) {
   if (!d) return `<span class="delta same">${t('day.same')}</span>`;
   return `<span class="delta ${bad ? (d > 0 ? 'worse' : 'better') : 'neutral'}">${d > 0 ? '+' : '−'}${Math.abs(d)}</span>`;
 }
+const weekVal = (w, k) => (w.m && w.m.hasData ? (w.m[k] === null || w.m[k] === undefined ? null : w.m[k]) : null);
 AVIEWS.day = () => {
   const j = DAYD, top = head('day', t('day.sub'));
   if (!S.homes.length) return `${top}<div class="panel"><h2>${t('ov.empty.t')}</h2><p>${t('ov.empty.p')}</p>${isOwnerRole(ME) ? `<button class="btn ink" data-act="atab" data-v="setup">${t('ov.empty.go')}</button>` : ''}</div>`;
@@ -5871,11 +6037,16 @@ AVIEWS.day = () => {
     ? `<p class="daystatus">${t('day.summary', { d: fmtDay(j.day), t: fmtDT(b.at), name: esc(dt(b.userName || '')) })}${j.dayBatches.length > 1 ? ` <span class="muted sm">(+${j.dayBatches.length - 1})</span>` : ''} <button class="btn sm ghost danger" data-act="imp-undo" data-v="${b.id}">${t('im.undo')}</button> <button class="btn sm ghost" data-act="day-import-toggle">${t('day.another')}</button></p>`
     : `<p class="callout warn">${t('day.noimport')}</p>`;
   const showImport = !b || UI.dayImpOpen || UI.imp || UI.impResult;
+  const tile = ([k, bad]) => {
+    const v = cur[k], na = v === null || v === undefined;
+    const below = na ? `<span class="nodelta">${t('day.nosnap')}</span>` : !prev.hasData ? `<span class="nodelta">${t('day.noprev')}</span>` : prev[k] === null || prev[k] === undefined ? `<span class="nodelta">${t('day.nosnap')}</span>` : `${deltaChip(v - prev[k], bad)}<span class="muted sm">${t('day.delta', { d: fmtDay(j.prev) })}</span>`;
+    return `<button class="tile2" data-act="day-drill" data-v="${k}"><span class="kl">${t('day.k.' + k)}</span><strong${na ? ' class="na"' : ''}>${na ? '—' : v}</strong>${below}${sparkline(week.map(w => weekVal(w, k)))}</button>`;
+  };
   return `${top}
   <div class="dayhead"><div class="filters">${dayPicker('day', j.day, { max: today() })}</div>${status}</div>
   ${showImport ? importArea(b ? '' : 'dropbig') : ''}
-  <div class="daytiles">${DAY_KEYS.map(([k, bad]) => `<div class="tile2"><span class="kl">${t('day.k.' + k)}</span><strong>${cur[k]}</strong>${deltaChip(cur[k] - prev[k], bad)}<span class="muted sm">${t('day.delta', { d: fmtDay(j.prev) })}</span>${sparkline(week.map(w => w.m[k] || 0))}</div>`).join('')}</div>
-  <div class="panel"><h2>${t('day.week')}</h2><p class="muted sm">${fmtDay(week[0].day)} – ${fmtDay(j.day)}</p><div class="weekstrip">${DAY_KEYS.map(([k]) => `<div class="wk"><span class="kl">${t('day.k.' + k)}</span>${miniBars(week.map(w => w.m[k] || 0), week.map(w => fmtDay(w.day)))}</div>`).join('')}</div></div>
+  <div class="daytiles">${DAY_KEYS.map(tile).join('')}</div>
+  <div class="panel"><h2>${t('day.week')}</h2><p class="muted sm">${fmtDay(week[0].day)} – ${fmtDay(j.day)}</p><div class="weekstrip">${DAY_KEYS.map(([k]) => `<div class="wk"><span class="kl">${t('day.k.' + k)}</span>${miniBars(week.map(w => weekVal(w, k)), week.map(w => fmtDay(w.day)))}</div>`).join('')}</div></div>
   <div class="grid2"><div class="panel"><h2>${t('day.notable')}</h2><p class="muted sm">${t('day.notable.p')}</p>${notableList(j)}</div>
   <div class="panel"><h2>${t('day.note.t')}</h2><p class="muted sm">${t('day.note.p')}</p><textarea id="dayNote" rows="5" maxlength="2000">${esc(j.note ? j.note.text : '')}</textarea>
     <div class="btnrow"><button class="btn ink" data-act="note-save">${t('btn.save')}</button>${j.note ? `<span class="muted sm">${t('day.note.by', { t: fmtDT(j.note.updatedAt), name: esc(dt(j.note.userName)) })}</span>` : ''}</div>
@@ -5891,22 +6062,31 @@ ACT['note-save'] = async () => {
   const j = await apiAct('noteSave', { day: UI.day, text }); if (j.error) return toast(t(j.error), 'bad');
   toast(t('day.note.saved')); await loadDay(UI.day);
 };
+/* drill-down: a tile or a "worth a look" item opens the gate log for the reviewed day with the matching filters */
+ACT['day-drill'] = v => {
+  if (!DAYD) return;
+  const key = v.startsWith('n:') ? v.slice(2) : v, def = DAY_KEYS.find(x => x[0] === key), f = { from: DAYD.day, to: DAYD.day, dir: 'in', cats: [] };
+  if (def) Object.assign(f, def[2]);
+  if (key === 'shift-day' || key === 'shift-night') Object.assign(f, { dir: 'in', cats: NONRES });
+  if (key === 'over') Object.assign(f, { dir: 'in', cats: [] });
+  gotoEvents(f);
+};
 const typeText = ty => (ty === 'member' ? t('kind.member') : t('kind.' + (ty || 'guest')));
 function notableList(j) {
-  const c = j.cur, p = j.prevM, items = [];
+  const c = j.cur, p = j.prevM, items = [], prevOk = !!p.hasData;
   const rows = list => (list.length ? `<div class="tbl-wrap"><table class="compact"><tbody>${list.join('')}</tbody></table></div>` : `<p class="empty">${t('rp.none')}</p>`);
   const tr = (...cells) => `<tr>${cells.map(x => `<td>${x}</td>`).join('')}</tr>`;
   const un = c.lists.unknown;
-  items.push({ d: c.unknown - p.unknown, label: t('day.n.unknown', { n: un.length, nw: un.filter(u => !u.repeat).length, nr: un.filter(u => u.repeat).length }), body: rows(un.map(u => tr(plate(u.plate, u.prov, 'sm'), chip(t(u.repeat ? 'day.repeat' : 'day.new'), u.repeat ? '' : 'warn'), fmtT(u.t), esc(u.home || ''), t('day.times', { n: u.n })))) });
+  items.push({ k: 'unknown', d: prevOk ? c.unknown - p.unknown : 0, label: t('day.n.unknown', { n: un.length, nw: un.filter(u => !u.repeat).length, nr: un.filter(u => u.repeat).length }), body: rows(un.map(u => tr(plate(u.plate, u.prov, 'sm'), chip(t(u.repeat ? 'day.repeat' : 'day.new'), u.repeat ? '' : 'warn'), fmtT(u.t), esc(u.home || ''), t('day.times', { n: u.n })))) });
   const prevOver = new Set((p.lists.over || []).map(o => o.id)), newly = (c.lists.over || []).filter(o => !prevOver.has(o.id));
-  items.push({ d: c.overHomes - p.overHomes, label: t('day.n.over', { n: newly.length }), body: rows(newly.map(o => tr(homeLink(o.id), esc(areaName(o.area || '')), `${o.at} / ${o.q}${o.temp ? ' +' + o.temp : ''}`))) });
-  items.push({ d: c.noExit - p.noExit, label: t('day.n.noexit', { n: c.noExit }), body: rows(c.lists.noExit.map(x => tr(plate(x.plate, x.prov, 'sm'), fmtT(x.t), esc(x.home || ''), typeText(x.type)))) });
+  items.push({ k: 'over', d: prevOk && c.overHomes !== null && p.overHomes !== null ? c.overHomes - p.overHomes : 0, label: c.overHomes === null ? `${t('day.k.overHomes')}: ${t('day.nosnap')}` : t('day.n.over', { n: newly.length }), body: rows(newly.map(o => tr(homeLink(o.id), esc(areaName(o.area || '')), `${o.at} / ${o.q}${o.temp ? ' +' + o.temp : ''}`))) });
+  items.push({ k: 'noExit', d: prevOk ? c.noExit - p.noExit : 0, label: t('day.n.noexit', { n: c.noExit }), body: rows(c.lists.noExit.map(x => tr(plate(x.plate, x.prov, 'sm'), fmtT(x.t), esc(x.home || ''), x.stale ? t('day.stale') : t('cat.' + (x.cat || 'unknown'))))) });
   for (const sh of ['day', 'night']) {
     const a = sh === 'day' ? j.shifts.start : j.shifts.end, b2 = sh === 'day' ? j.shifts.end : j.shifts.start, list = c.lists.nonMember.filter(x => x.shift === sh);
-    items.push({ d: c.shifts[sh] - p.shifts[sh], label: t('day.n.shift', { shift: t('day.shift.' + sh), a, b: b2, n: list.length }), body: rows(list.map(x => tr(plate(x.plate, x.prov, 'sm'), fmtT(x.t), esc(x.home || ''), typeText(x.type)))) });
+    items.push({ k: 'shift-' + sh, d: prevOk ? c.shifts[sh] - p.shifts[sh] : 0, label: t('day.n.shift', { shift: t('day.shift.' + sh), a, b: b2, n: list.length }), body: rows(list.map(x => tr(plate(x.plate, x.prov, 'sm'), fmtT(x.t), esc(x.home || ''), t('cat.' + (x.cat || 'unknown'))))) });
   }
   items.sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
-  return `<div class="notable">${items.map(x => `<details><summary><span>${x.label}</span>${deltaChip(x.d, true)}</summary>${x.body}</details>`).join('')}</div>`;
+  return `<div class="notable">${items.map(x => `<details><summary><span><button class="link" data-act="day-drill" data-v="n:${x.k}">${x.label}</button></span>${prevOk ? deltaChip(x.d, true) : `<span class="nodelta">${t('day.noprev')}</span>`}</summary>${x.body}</details>`).join('')}</div>`;
 }
 /* drag and drop onto the import area: the dropped CSV goes through the same path as the file input */
 document.addEventListener('dragover', e => { const z = e.target.closest && e.target.closest('[data-drop]'); if (z) { e.preventDefault(); z.classList.add('over'); } });
@@ -5947,10 +6127,21 @@ document.addEventListener('drop', e => { const z = e.target.closest && e.target.
   const dayEvents = (s, e) => S.events.filter(x => x.t >= s && x.t < e).sort((a, b) => a.t - b.t || a.id - b.id);
   const overNow = () => S.homes.map(h => ({ h, s: homeStat(h.id) })).filter(x => x.s.status === 'overflow').map(x => ({ id: x.h.id, area: x.h.area, q: x.s.q, at: x.s.at, temp: x.s.temp }));
   const snapNow = () => { let members = 0, guests = 0; for (const p of D.pres.values()) p.type === 'member' ? members++ : guests++; return { members, guests, tempEnd: tempUsed(), peak: tempUsed(), peakAt: null, over: overNow(), unauthorized: securityIssues().inside.length }; };
+  const isKnown = k => !!D.veh[k] || !!(D.svc && D.svc[k]), areaOf = h => (h && D.home[h] ? D.home[h].area : '');
   function metrics(day, withLists) {
     const [s, e] = dayRangeOf(day, st()), todayG = gateDayOf(Date.now(), st());
-    return dayMetricsFrom({ evs: dayEvents(s, e), visits: S.passes.filter(p => p.entryAt >= s && p.entryAt < e), over: day === todayG ? overNow() : [],
-      isKnown: k => !!D.veh[k] || !!(D.svc && D.svc[k]), seenBefore: k => S.events.some(x => x.t < s && pk(x.plate) === k) }, st(), day, withLists);
+    /* past days have no end-of-day snapshot in the demo, so houses over quota are unknown (null) for them */
+    return dayMetricsFrom({ evs: dayEvents(s, e), visits: S.passes.filter(p => p.entryAt >= s && p.entryAt < e), over: day === todayG ? overNow() : null,
+      isKnown, seenBefore: k => S.events.some(x => x.t < s && pk(x.plate) === k), exitAfter: (k, t) => S.events.some(x => x.dir === 'out' && x.t > t && pk(x.plate) === k) }, st(), day, withLists);
+  }
+  function summaryDemo(from, to) {
+    const days = [], todayG = gateDayOf(Date.now(), st()); let d = from, n = 0;
+    while (d <= to && n++ < 92) {
+      const [s, e] = dayRangeOf(d, st()), sm = daySummaryFrom(dayEvents(s, e), isKnown, areaOf), over = d === todayG ? overNow() : null;
+      if (over) for (const o of over) { const a = o.area || ''; if (!sm.soi[a]) sm.soi[a] = { in: 0, over: 0 }; sm.soi[a].over++; }
+      days.push({ day: d, ...sm, overHomes: over ? over.length : null }); d = isoShiftDay(d, 1);
+    }
+    return { from, to, days };
   }
   function dayPage(dayParam) {
     const lastImp = S.events.filter(x => x.source === 'import').reduce((m, x) => Math.max(m, x.t), 0), lastAny = S.events.reduce((m, x) => Math.max(m, x.t), 0) || Date.now();
@@ -5971,7 +6162,10 @@ document.addEventListener('drop', e => { const z = e.target.closest && e.target.
     const qv = (q.get('q') || '').trim(); if (qv) { const k = pk(qv); rows = rows.filter(x => (k && pk(x.plate).includes(k)) || x.home === qv); }
     if (['member', 'guest', 'delivery', 'service'].includes(q.get('type'))) rows = rows.filter(x => x.type === q.get('type'));
     if (['in', 'out', 'move'].includes(q.get('dir'))) rows = rows.filter(x => x.dir === q.get('dir'));
-    const day = q.get('day'); if (/^\d{4}-\d{2}-\d{2}$/.test(day || '')) { const [y, m, d] = day.split('-').map(Number), s = new Date(y, m - 1, d).getTime(); rows = rows.filter(x => x.t >= s && x.t < s + DAY); }
+    const from = q.get('from'), to = q.get('to') || from, day = q.get('day');
+    if (isoDay(from) && isoDay(to)) { const [s] = dayRangeOf(from, st()), [, e] = dayRangeOf(to, st()); rows = rows.filter(x => x.t >= s && x.t < e); }
+    else if (isoDay(day)) { const [y, m, d] = day.split('-').map(Number), s = new Date(y, m - 1, d).getTime(); rows = rows.filter(x => x.t >= s && x.t < s + DAY); }
+    rows = filterEvents(rows, { cats: String(q.get('cat') || '').split(',').filter(Boolean), soi: q.get('soi') || 'all', hour: q.get('hour') || '', dir: 'all', q: '' }, isKnown, areaOf);
     const before = +q.get('before'); if (before > 0) rows = rows.filter(x => x.id < before);
     rows.sort((a, b) => b.t - a.t || b.id - a.id);
     const lim = all ? 200000 : Math.min(200, Math.max(1, +q.get('limit') || 100));
@@ -6099,6 +6293,7 @@ document.addEventListener('drop', e => { const z = e.target.closest && e.target.
     if (p === '/api/state') return j(200, { serverNow: Date.now(), me: USER, https: false, demo: true, v: VER, state: snapshot() });
     if (p === '/api/act') return act(body);
     if (p === '/api/day') return j(200, dayPage(q.get('day')));
+    if (p === '/api/summary') { const from = q.get('from') || '', to = q.get('to') || from; if (!isoDay(from) || !isoDay(to) || to < from) return j(400, { error: 'e.unknown' }); return j(200, summaryDemo(from, to)); }
     if (p === '/api/report') return report(q.get('day'));
     if (p === '/api/events') return j(200, eventQuery(q, false));
     if (p === '/api/history') { const k = pk(q.get('plate') || ''); return j(200, { rows: S.events.filter(x => pk(x.plate) === k).sort((a, b) => b.t - a.t || b.id - a.id).slice(0, 500) }); }
