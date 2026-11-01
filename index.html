@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-11-01T01:18"><meta name="theme-color" content="#1f2a33"><style>
+<title>Village Gate demo</title><meta name="village-gate-demo" content="built 2026-11-01T01:43"><meta name="theme-color" content="#1f2a33"><style>
 /* Village Gate v2. Base styles from the prototype, v2 additions at the end. */
 :root{
   --bg:#ECEFF2; --surface:#FFFFFF; --surface2:#F4F6F8; --line:#D4DBE2; --ink:#17212B; --muted:#5A6676;
@@ -434,8 +434,9 @@ label .dpick{justify-self:start}
 /* menu groups */
 .navg{margin:0 0 4px}.navitems{display:flex;flex-direction:column;gap:2px}.navitems[hidden]{display:none}
 .navg.fold{border-top:1px solid var(--line);margin-top:8px;padding-top:4px}
-.navh{appearance:none;border:0;background:transparent;width:100%;text-align:left;font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:default;border-radius:8px;line-height:1.3}
-button.navh{cursor:pointer}.side button.navh:hover{background:var(--surface2);color:var(--ink)}
+/* one style for every group title; the selector outranks `.side button` (and its phone rules), so the collapsible titles are not item-sized */
+.side .navh,.side button.navh{appearance:none;border:0;border-left:0;background:transparent;width:100%;min-height:0;text-align:left;font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px 4px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:default;border-radius:8px;line-height:1.3;white-space:nowrap}
+.side button.navh{cursor:pointer;min-height:32px}.side button.navh:hover{background:var(--surface2);color:var(--ink)}
 .navh .chev{width:14px;height:14px;flex:none;transition:transform .15s ease}.navh .chev svg{display:block;width:14px;height:14px}.navg.open .navh .chev{transform:rotate(90deg)}
 .side .navitems button{font-size:14.5px;text-transform:none;letter-spacing:0}
 @media (max-width:760px){.side .navg{display:flex;align-items:center}.side .navitems{flex-direction:row}}
@@ -444,6 +445,10 @@ button.tile2{text-align:left;font-family:inherit;cursor:pointer;width:100%;line-
 .tile2 .nodelta{font-size:12.5px;color:var(--muted)}.tile2 strong.na{color:var(--muted)}
 .mbars span.nodata{background:transparent;border:1px dotted var(--muted);border-radius:3px}.mbars span.nodata i{display:none}
 .notable summary button.link{text-align:left}
+/* car summary tab: small horizontal bars inside a tile */
+.hbars{display:grid;gap:6px;margin-top:4px}.hb{display:grid;grid-template-columns:minmax(64px,auto) 1fr 2.5em;align-items:center;gap:8px;font-size:13px}
+.hbl{color:var(--muted);white-space:nowrap}.hbb{height:10px;background:var(--surface2);border-radius:999px;overflow:hidden}.hbb i{display:block;height:100%;background:var(--busy);border-radius:999px}.hbn{text-align:right;font-weight:600;color:var(--ink)}
+div.tile2{line-height:1.4}
 /* in-out summary tab */
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 12px}
 .seg button{appearance:none;border:0;background:var(--surface);color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;padding:8px 14px;cursor:pointer;min-height:40px}
@@ -1295,6 +1300,15 @@ function areaName(a) {
   'cat.member': ['Residents', 'ลูกบ้าน'], 'cat.guest': ['Visitors', 'ผู้มาติดต่อ'], 'cat.delivery': ['Deliveries', 'รถส่งของ'], 'cat.service': ['Service vehicles', 'รถบริการ'], 'cat.unknown': ['Unknown plates', 'ไม่รู้จัก'],
   'sum.day': ['Day', 'วันที่'], 'sum.entries': ['Entries', 'รถเข้า'], 'sum.exits': ['Exits', 'รถออก'], 'sum.total': ['Total in', 'รวมเข้า'], 'sum.over': ['Houses over quota', 'บ้านที่รถเกินสิทธิ์'], 'sum.nodata': ['no file', 'ไม่มีไฟล์'],
   'sum.range': ['{a} to {b}', '{a} ถึง {b}'], 'sum.soi.none': ['No entries on this day.', 'ไม่มีรถเข้าในวันนี้'],
+  // car summary tab
+  'tab.cars': ['Car summary', 'สรุปรถ'],
+  'cs.sub': ['Registered cars against the gate file: how many, per house, by type, which ones came through on the day selected on the day page, and which have not appeared for thirty days.', 'รถที่ลงทะเบียนเทียบกับไฟล์ประตู: จำนวน ต่อบ้าน ตามประเภท คันไหนผ่านประตูในวันที่เลือกไว้ในหน้า วันนี้ และคันไหนไม่พบในบันทึกมา 30 วัน'],
+  'cs.day': ['Gate rows of {d} (the day selected on the day page) and the 30 days ending there.', 'บันทึกประตูของ {d} (วันที่เลือกไว้ในหน้า วันนี้) และ 30 วันจนถึงวันนั้น'],
+  'cs.k.reg': ['Registered cars', 'รถที่ลงทะเบียน'], 'cs.k.perhome': ['Homes with 0 / 1 / 2 / 3+ cars', 'บ้านที่มีรถ 0 / 1 / 2 / 3+ คัน'], 'cs.k.over': ['Homes with more cars than parking', 'บ้านที่รถเกินที่จอด'], 'cs.k.kind': ['By vehicle type', 'ตามประเภทรถ'],
+  'cs.k.seen': ['Resident cars through the gate on this day', 'รถลูกบ้านที่ผ่านประตูในวันนี้'], 'cs.k.unseen': ['Registered cars not in the log for 30 days', 'รถลงทะเบียนที่ไม่พบในบันทึก 30 วัน'],
+  'cs.n0': ['0 cars', '0 คัน'], 'cs.n1': ['1 car', '1 คัน'], 'cs.n2': ['2 cars', '2 คัน'], 'cs.n3': ['3+ cars', '3 คันขึ้นไป'],
+  'cs.inhomes': ['in {n} homes', 'ใน {n} บ้าน'], 'cs.ofreg': ['of {n} registered', 'จาก {n} คันที่ลงทะเบียน'], 'cs.ofhomes': ['of {n} homes', 'จาก {n} บ้าน'], 'cs.parking': ['{n} cars, parking for {q}', '{n} คัน ที่จอด {q} คัน'],
+  'cs.last': ['last in the log {d}', 'พบในบันทึกล่าสุด {d}'], 'cs.never': ['never in the log', 'ไม่เคยพบในบันทึก'], 'cs.none': ['None', 'ไม่มี'], 'cs.nohome': ['No houses yet.', 'ยังไม่มีบ้าน'],
   'ev.from': ['From', 'ตั้งแต่'], 'ev.to': ['To', 'ถึง'], 'ev.soi': ['Soi', 'ซอย'], 'ev.allsoi': ['All sois', 'ทุกซอย'], 'ev.clear': ['Clear filters', 'ล้างตัวกรอง'],
   'ev.alldays': ['all days', 'ทุกวัน'], 'ev.allcats': ['all types', 'ทุกประเภท'], 'ev.hourf': ['{h}:00–{h}:59', '{h}:00–{h}:59'], 'ev.showing': ['Showing: {s}', 'กำลังแสดง: {s}'], 'ev.search2': ['plate or house "{q}"', 'ทะเบียนหรือบ้าน "{q}"'],
   // day picker
@@ -5430,7 +5444,7 @@ function linkModal(plateTxt) {
 /* ----- menu: groups, by role. The day review is first and the default. Import is part of the day page, not a tab. ----- */
 const NAV = [
   { k: 'main', tabs: ['day', 'reports'] },
-  { k: 'village', tabs: ['homes', 'vehicles', 'map'] },
+  { k: 'village', tabs: ['homes', 'vehicles', 'cars', 'map'] },
   { k: 'more', tabs: ['overview', 'visitors', 'services', 'events', 'security', 'staff', 'settings'], fold: true },
   { k: 'owner', tabs: ['setup', 'audit', 'guarddemo'], fold: true, owner: true },
 ];
@@ -5458,7 +5472,7 @@ ACT['nav-toggle'] = v => { UI.navOpen[v] = !UI.navOpen[v]; render(); };
 ACT['menu-toggle'] = () => { UI.menuOpen = !UI.menuOpen; render(); };
 /* a table cell that knows its column name, so the phone layout can show it as a label (td::before) */
 const td = (th, inner, cls = '') => `<td${cls ? ` class="${cls}"` : ''} data-th="${esc(th)}">${inner}</td>`;
-const TABLOAD = { day: () => loadDay(UI.day), events: () => loadEvents(true), reports: () => { loadReport(); loadSummary(); }, staff: () => loadStaff(), settings: () => loadBackups() };
+const TABLOAD = { day: () => loadDay(UI.day), events: () => loadEvents(true), reports: () => { loadReport(); loadSummary(); }, cars: () => loadCars(UI.day || today()), staff: () => loadStaff(), settings: () => loadBackups() };
 ACT.atab = v => { if (!ATABS_OF().includes(v)) return; UI.atab = v; UI.menuOpen = false; if (MODAL) closeModal(); render(); window.scrollTo(0, 0); if (TABLOAD[v]) TABLOAD[v](); };
 AVIEWS.map = () => `${head('map', t('map.sub'))}<div class="panel">${villageMap()}</div>`;
 /* the gate screen, tried from the office: the same code the guard phone runs, with a banner. Entries are real. */
@@ -5841,6 +5855,51 @@ ACT['rep-xlsx'] = () => { if (!REPORT) return; const r = buildReport(REPORT); sa
 ACT['rep-html'] = () => { if (!REPORT) return; const r = buildReport(REPORT); saveFile(`village-report-${r.day}.html`, reportHTML(r)); };
 ACT['rep-csv'] = () => { const day = UI.repDay || today(); download('/api/export/events.csv?from=' + day + '&to=' + day); };
 
+/* ----- car summary: the registered cars against the gate rows of the day selected on the day page (UI.day) ----- */
+let CARSUM = null;
+async function loadCars(day) {
+  UI.carsLoading = true;
+  try { const j = await api('GET', '/api/cars?day=' + day); if (j.day) CARSUM = j; } catch (e) { /* offline */ }
+  UI.carsLoading = false;
+  if (UI.atab === 'cars') render();
+}
+/* c = /api/cars: { day, seen: plate keys with a gate row on the day, seen30: the same for the 30 gate days ending there, last: { key: last row time } for registered cars outside those 30 days } */
+function carSummary(c) {
+  const seen = new Set(c.seen || []), seen30 = new Set(c.seen30 || []), last = c.last || {}, cmp = (a, b) => String(a).localeCompare(String(b), undefined, { numeric: true });
+  const perHome = {}; for (const v of S.vehicles) perHome[v.home] = (perHome[v.home] || 0) + 1;
+  const buckets = [0, 0, 0, 0]; for (const h of S.homes) buckets[Math.min(3, perHome[h.id] || 0)]++;
+  const over = S.homes.map(h => ({ id: h.id, n: perHome[h.id] || 0, q: quotaOf(h.id) })).filter(x => x.n > x.q).sort((a, b) => (b.n - b.q) - (a.n - a.q) || cmp(a.id, b.id));
+  const kinds = VEH_KINDS.map(k => ({ k, n: S.vehicles.filter(v => (v.kind || 'car') === k).length }));
+  const seenV = S.vehicles.filter(v => seen.has(pk(v.plate))).sort((a, b) => cmp(a.home, b.home) || cmp(a.plate, b.plate));
+  const unseenV = S.vehicles.filter(v => !seen30.has(pk(v.plate))).map(v => ({ ...v, last: last[pk(v.plate)] || null })).sort((a, b) => (a.last || 0) - (b.last || 0) || cmp(a.home, b.home));
+  return { reg: S.vehicles.length, homesWithCars: Object.keys(perHome).filter(h => D.home[h]).length, buckets, over, kinds, seenV, unseenV };
+}
+const hbars = rows => { const max = Math.max(1, ...rows.map(r => r.n)); return `<div class="hbars">${rows.map(r => `<div class="hb"><span class="hbl">${r.label}</span><span class="hbb"><i style="width:${Math.round(r.n / max * 100)}%"></i></span><span class="hbn">${r.n}</span></div>`).join('')}</div>`; };
+AVIEWS.cars = () => {
+  const day = UI.day || today(), top = head('cars', t('cs.sub'));
+  if (!S.homes.length) return `${top}<div class="panel"><p class="empty">${t('cs.nohome')}</p></div>`;
+  if (!CARSUM || CARSUM.day !== day) { if (!UI.carsLoading) loadCars(day); return `${top}<p class="muted">${t('loading')}</p>`; }
+  const c = carSummary(CARSUM);
+  const tile = (k, inner, act, dv) => (act ? `<button class="tile2" data-act="${act}" data-v="${esc(dv)}">` : '<div class="tile2">') + `<span class="kl">${t('cs.k.' + k)}</span>${inner}` + (act ? '</button>' : '</div>');
+  const num = (v, below) => `<strong>${v}</strong><span class="nodelta">${below}</span>`;
+  const carList = vs => (vs.length ? `<ul class="vlist">${vs.map(v => `<li>${plateBtn(v.plate, v.prov)}<span>${homeLink(v.home)} <span class="muted sm">${carDesc(v)}</span></span>${'last' in v ? `<span class="muted sm">${v.last ? t('cs.last', { d: fmtDay(gateDayOf(v.last, S.settings)) }) : t('cs.never')}</span>` : ''}</li>`).join('')}</ul>` : `<p class="empty">${t('cs.none')}</p>`);
+  return `${top}<p class="muted">${t('cs.day', { d: fmtDay(day) })}</p>
+  <div class="daytiles cars">
+    ${tile('reg', num(c.reg, t('cs.inhomes', { n: c.homesWithCars })), 'atab', 'vehicles')}
+    ${tile('perhome', hbars(c.buckets.map((n, i) => ({ label: t('cs.n' + i), n }))))}
+    ${tile('over', num(c.over.length, t('cs.ofhomes', { n: S.homes.length })))}
+    ${tile('kind', hbars(c.kinds.map(x => ({ label: t('vk.' + x.k), n: x.n }))))}
+    ${tile('seen', num(c.seenV.length, t('cs.ofreg', { n: c.reg })), 'cars-drill', day)}
+    ${tile('unseen', num(c.unseenV.length, t('cs.ofreg', { n: c.reg })))}
+  </div>
+  <div class="grid2">
+    <div class="panel"><h2>${t('cs.k.over')} (${c.over.length})</h2>${c.over.length ? `<ul class="vlist">${c.over.map(x => `<li>${homeLink(x.id)}<span>${t('cs.parking', { n: x.n, q: x.q })}</span></li>`).join('')}</ul>` : `<p class="empty">${t('cs.none')}</p>`}</div>
+    <div class="panel"><h2>${t('cs.k.unseen')} (${c.unseenV.length})</h2>${carList(c.unseenV)}</div>
+  </div>
+  <div class="panel"><h2>${t('cs.k.seen')} (${c.seenV.length})</h2>${carList(c.seenV)}</div>`;
+};
+ACT['cars-drill'] = day => gotoEvents({ from: day, to: day, dir: 'all', cats: ['member'] });
+
 /* ----- gate log import (lives on the day page; these handlers are shared with it) ----- */
 async function loadBatches() { try { const j = await api('GET', '/api/import/batches'); if (j.rows) BATCHES = j.rows; } catch (e) { /* offline */ } }
 async function afterImport() { await loadState(); if (UI.atab === 'day') await loadDay(UI.day); else { await loadBatches(); render(); } }
@@ -6143,6 +6202,12 @@ document.addEventListener('drop', e => { const z = e.target.closest && e.target.
     }
     return { from, to, days };
   }
+  function carsDemo(day) {
+    const [s, e] = dayRangeOf(day, st()), [s30] = dayRangeOf(isoShiftDay(day, -29), st()), seen = new Set(), seen30 = new Set(), last = {};
+    for (const x of S.events) { if (!x.plate || x.dir === 'move') continue; const k = pk(x.plate); if (x.t >= s && x.t < e) seen.add(k); if (x.t >= s30 && x.t < e) seen30.add(k); else if (x.t < s30 && D.veh[k] && !(last[k] >= x.t)) last[k] = x.t; }
+    for (const k of seen30) delete last[k];
+    return { day, seen: [...seen], seen30: [...seen30], last };
+  }
   function dayPage(dayParam) {
     const lastImp = S.events.filter(x => x.source === 'import').reduce((m, x) => Math.max(m, x.t), 0), lastAny = S.events.reduce((m, x) => Math.max(m, x.t), 0) || Date.now();
     const day = /^\d{4}-\d{2}-\d{2}$/.test(dayParam || '') ? dayParam : gateDayOf(lastImp || lastAny, st()), prev = isoShiftDay(day, -1);
@@ -6294,6 +6359,7 @@ document.addEventListener('drop', e => { const z = e.target.closest && e.target.
     if (p === '/api/act') return act(body);
     if (p === '/api/day') return j(200, dayPage(q.get('day')));
     if (p === '/api/summary') { const from = q.get('from') || '', to = q.get('to') || from; if (!isoDay(from) || !isoDay(to) || to < from) return j(400, { error: 'e.unknown' }); return j(200, summaryDemo(from, to)); }
+    if (p === '/api/cars') { const day = q.get('day') || gateDayOf(Date.now(), st()); if (!isoDay(day)) return j(400, { error: 'e.unknown' }); return j(200, carsDemo(day)); }
     if (p === '/api/report') return report(q.get('day'));
     if (p === '/api/events') return j(200, eventQuery(q, false));
     if (p === '/api/history') { const k = pk(q.get('plate') || ''); return j(200, { rows: S.events.filter(x => pk(x.plate) === k).sort((a, b) => b.t - a.t || b.id - a.id).slice(0, 500) }); }
